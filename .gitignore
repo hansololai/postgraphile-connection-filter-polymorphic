@@ -18,6 +18,12 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
+# Node stuff
+dist
+node_modules
+.env
+yarn-error.log
+
 # =========================
 # Operating System Files
 # =========================

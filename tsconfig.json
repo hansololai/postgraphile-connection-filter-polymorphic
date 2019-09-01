@@ -1,0 +1,38 @@
+{
+  "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "lib": [
+      "es2017",
+      "dom"
+    ],
+    "allowJs": true,
+    "sourceMap": true,
+    "experimentalDecorators": true,
+    "strict": true,
+    "noImplicitAny": false,
+    "module": "commonjs",
+    "target": "es6",
+    "outDir": "dist",
+    "moduleResolution": "node",
+    "plugins": [
+      {
+        "name": "typescript-tslint-plugin"
+      }
+    ]
+  },
+  "include": [
+    "src/**/*.ts",
+    "*.ts",
+  ],
+  "exclude": [
+    "node_modules"
+  ],
+  "rules": {
+    "max-line-length": [
+      true,
+      {
+        "ignore-pattern": "// | `"
+      }
+    ]
+  }
+}

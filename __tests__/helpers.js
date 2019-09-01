@@ -19,13 +19,17 @@ const withPgClient = async (url, fn) => {
     fn = url;
     url = process.env.TEST_DATABASE_URL;
   }
+
   const pgPool = new pg.Pool(pgConnectionString.parse(url));
   let client;
   try {
     client = await pgPool.connect();
+
     await client.query("begin");
     await client.query("set local timezone to '+04:00'");
+
     const result = await fn(client);
+
     await client.query("rollback");
     return result;
   } finally {

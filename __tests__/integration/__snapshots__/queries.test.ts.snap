@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`baseFilterTest.graphql 1`] = `
+Object {
+  "errors": Array [
+    [GraphQLError: Variable "$v2" is never used in operation "text".],
+    [GraphQLError: Variable "$v3" is never used in operation "text".],
+  ],
+}
+`;

@@ -1,0 +1,11 @@
+query text($v2: String = "Test", $v3: String = "tEST") {
+  distinctFromInsensitive: allFilterables(filter:  {}) {
+    ...nodes
+  }
+}
+
+fragment nodes on FilterablesConnection {
+  nodes {
+    id
+  }
+}

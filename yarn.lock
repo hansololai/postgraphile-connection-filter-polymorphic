@@ -797,7 +797,7 @@ caseless@~0.12.0:
   version "0.12.0"
   resolved "https://registry.yarnpkg.com/caseless/-/caseless-0.12.0.tgz#1b681c21ff84033c826543090689420d187151dc"
 
-chalk@^2.0.0, chalk@^2.0.1, chalk@^2.1.0, chalk@^2.3.0, chalk@^2.4.2:
+chalk@^2.0.0, chalk@^2.0.1, chalk@^2.3.0, chalk@^2.4.2:
   version "2.4.2"
   resolved "https://registry.yarnpkg.com/chalk/-/chalk-2.4.2.tgz#cd42541677a54333cf541a49108c1432b44c9424"
   dependencies:
@@ -929,7 +929,7 @@ data-urls@^1.0.0:
     whatwg-mimetype "^2.2.0"
     whatwg-url "^7.0.0"
 
-debug@2.6.9, "debug@>=2 <3", debug@^2.2.0, debug@^2.3.3:
+debug@2.6.9, debug@^2.2.0, debug@^2.3.3:
   version "2.6.9"
   resolved "https://registry.yarnpkg.com/debug/-/debug-2.6.9.tgz#5d128515df134ff327e90a4c93f4e077a536341f"
   dependencies:
@@ -1357,21 +1357,6 @@ graceful-fs@^4.1.11, graceful-fs@^4.1.15, graceful-fs@^4.1.2:
   version "4.2.2"
   resolved "https://registry.yarnpkg.com/graceful-fs/-/graceful-fs-4.2.2.tgz#6f0952605d0140c1cfdb138ed005775b92d67b02"
 
-graphile-build-pg@4.3.0:
-  version "4.3.0"
-  resolved "https://registry.yarnpkg.com/graphile-build-pg/-/graphile-build-pg-4.3.0.tgz#be33d7d45e864954cecba547d50682e50839f86d"
-  integrity sha512-C5s4kB94lsGmaeN8F54q5K46fSbGNLiOkwOmt/78coXoRlnMWFexvTE+BA5vH+lVHH43l5G6r7p3vI/xfD6soQ==
-  dependencies:
-    chalk "^2.1.0"
-    debug ">=2 <3"
-    graphile-build "4.3.0"
-    graphql-iso-date "^3.6.0"
-    jsonwebtoken "^8.1.1"
-    lodash ">=4 <5"
-    lru-cache ">=4 <5"
-    pg-sql2 "2.2.1"
-    postgres-interval "^1.1.1"
-
 graphile-build-pg@4.4.4:
   version "4.4.4"
   resolved "https://registry.yarnpkg.com/graphile-build-pg/-/graphile-build-pg-4.4.4.tgz#d169504e71f9180ad1ebd8216603bc5fadb77a7e"
@@ -1386,20 +1371,6 @@ graphile-build-pg@4.4.4:
     lru-cache ">=4 <5"
     pg-sql2 "4.4.3"
     postgres-interval "^1.2.0"
-
-graphile-build@4.3.0:
-  version "4.3.0"
-  resolved "https://registry.yarnpkg.com/graphile-build/-/graphile-build-4.3.0.tgz#7992ccf40fbda9463985631e20444ed9a48ee1ed"
-  integrity sha512-wxEfeqLNZLg2QgMa2atf97L2E8ZC85YsIvGN/XI2QhQKU6vJl4PltmJob1WgjqziPRVnngfLOWZ3hU6MRPcwbA==
-  dependencies:
-    "@types/graphql" "^14.0.3"
-    chalk "^2.1.0"
-    debug ">=2 <3"
-    graphql-parse-resolve-info "4.1.0"
-    lodash ">=4 <5"
-    lru-cache ">=4 <5"
-    pluralize "^7.0.0"
-    semver "^5.6.0"
 
 graphile-build@4.4.4:
   version "4.4.4"
@@ -1419,13 +1390,6 @@ graphile-build@4.4.4:
 graphql-iso-date@^3.6.0:
   version "3.6.1"
   resolved "https://registry.yarnpkg.com/graphql-iso-date/-/graphql-iso-date-3.6.1.tgz#bd2d0dc886e0f954cbbbc496bbf1d480b57ffa96"
-
-graphql-parse-resolve-info@4.1.0:
-  version "4.1.0"
-  resolved "https://registry.yarnpkg.com/graphql-parse-resolve-info/-/graphql-parse-resolve-info-4.1.0.tgz#fa52bc9d8aeec210e3ad92cca30d3c36a5e814c3"
-  dependencies:
-    "@types/graphql" "^14.0.3"
-    debug ">=2 <3"
 
 graphql-parse-resolve-info@4.4.3:
   version "4.4.3"
@@ -2194,7 +2158,7 @@ json5@2.x, json5@^2.1.0:
   dependencies:
     minimist "^1.2.0"
 
-jsonwebtoken@^8.0.0, jsonwebtoken@^8.1.1, jsonwebtoken@^8.5.1:
+jsonwebtoken@^8.0.0, jsonwebtoken@^8.5.1:
   version "8.5.1"
   resolved "https://registry.yarnpkg.com/jsonwebtoken/-/jsonwebtoken-8.5.1.tgz#00e71e0b8df54c2121a1f26137df2280673bcc0d"
   dependencies:
@@ -2777,13 +2741,6 @@ pg-pool@^2.0.4:
   version "2.0.7"
   resolved "https://registry.yarnpkg.com/pg-pool/-/pg-pool-2.0.7.tgz#f14ecab83507941062c313df23f6adcd9fd0ce54"
 
-pg-sql2@2.2.1:
-  version "2.2.1"
-  resolved "https://registry.yarnpkg.com/pg-sql2/-/pg-sql2-2.2.1.tgz#a37612e5243887c5135a6849dec1f20b2cf00553"
-  dependencies:
-    "@types/pg" "^7.4.10"
-    debug ">=2 <3"
-
 pg-sql2@4.4.3, pg-sql2@^4.4.1-alpha.2:
   version "4.4.3"
   resolved "https://registry.yarnpkg.com/pg-sql2/-/pg-sql2-4.4.3.tgz#990ffa7289194ee0e5331b3e862c38dd336d8396"
@@ -2852,15 +2809,6 @@ posix-character-classes@^0.1.0:
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/posix-character-classes/-/posix-character-classes-0.1.1.tgz#01eac0fe3b5af71a2a6c02feabb8c1fef7e00eab"
 
-postgraphile-core@4.3.0:
-  version "4.3.0"
-  resolved "https://registry.yarnpkg.com/postgraphile-core/-/postgraphile-core-4.3.0.tgz#d994b3fc43a4a27cf354a533104dec2b3c323d17"
-  integrity sha512-mLj+0hW51HrlEoFIO5kofT/F9wVhut/MkR6H62KYXi8ll7tJmmGSCSdQUPk8Zvusw2IyuaQvMVbjQwWUhbG1jQ==
-  dependencies:
-    "@types/graphql" "^14.0.3"
-    graphile-build "4.3.0"
-    graphile-build-pg "4.3.0"
-
 postgraphile-core@4.4.4:
   version "4.4.4"
   resolved "https://registry.yarnpkg.com/postgraphile-core/-/postgraphile-core-4.4.4.tgz#f02cced0dfe3874b8e907176d66c6c702879a5df"
@@ -2914,7 +2862,7 @@ postgres-date@~1.0.4:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/postgres-date/-/postgres-date-1.0.4.tgz#1c2728d62ef1bff49abdd35c1f86d4bdf118a728"
 
-postgres-interval@^1.1.0, postgres-interval@^1.1.1, postgres-interval@^1.2.0:
+postgres-interval@^1.1.0, postgres-interval@^1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/postgres-interval/-/postgres-interval-1.2.0.tgz#b460c82cb1587507788819a06aa0fffdb3544695"
   dependencies:
@@ -3664,9 +3612,10 @@ type-is@~1.6.17:
     media-typer "0.3.0"
     mime-types "~2.1.24"
 
-typescript-tslint-plugin@^0.3.1:
-  version "0.3.1"
-  resolved "https://registry.yarnpkg.com/typescript-tslint-plugin/-/typescript-tslint-plugin-0.3.1.tgz#d86ae0342c9e8f9ecfcbcc47f7a7c2b5ab0e86f9"
+typescript-tslint-plugin@^0.5.4:
+  version "0.5.4"
+  resolved "https://registry.yarnpkg.com/typescript-tslint-plugin/-/typescript-tslint-plugin-0.5.4.tgz#febe0cca1fe65133f4f688841eba68262a1d55a5"
+  integrity sha512-CQEfGC+p0SoBARI4N2LrGsWJsp4/OE+uKZ68xsWYKHWqMFq4DFQHqOVlK0deEricSN01NmDTqjap63Pw/DHieg==
   dependencies:
     minimatch "^3.0.4"
     mock-require "^3.0.2"

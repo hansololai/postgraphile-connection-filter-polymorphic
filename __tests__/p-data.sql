@@ -2,6 +2,10 @@ insert into p.parent(id, name) values
   (1, 'parent1'),
   (2, 'parent2');
 
+insert into p.taggs(id,taggable_id,taggable_type,content) values 
+(1,1,'Parent','tagged on parent1'),
+(2,2,'Parent','tagged on parent2');
+
 insert into p.forward(id, name) values
   (1, 'forward1'),
   (2, 'forward2'),

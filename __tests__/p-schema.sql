@@ -5,6 +5,15 @@ drop schema if exists p cascade;
 
 create schema p;
 
+create table p.taggs (
+  id serial primary key,
+  "taggable_id" integer not null,
+  "taggable_type" text not null,
+  "content" text
+);
+
+comment on column p.taggs.taggable_type is E'@isPolymorphic\n@polymorphicTo Parent\n@polymorphicTo Forward';
+
 create table p.parent (
   id serial primary key,
   "name" text not null

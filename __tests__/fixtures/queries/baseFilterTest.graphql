@@ -1,4 +1,4 @@
-query text($v2: String = "Test", $v3: String = "tEST") {
+query text {
   distinctFromInsensitive: allFilterables(filter:  {}) {
     ...nodes
   }

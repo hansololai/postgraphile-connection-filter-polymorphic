@@ -4,12 +4,7 @@ import { createPostGraphileSchema } from 'postgraphile-core';
 import { readdirSync, readFile as rawReadFile } from 'fs';
 import { resolve as resolvePath } from 'path';
 import PgConnectionFilterPlugin from 'postgraphile-plugin-connection-filter';
-import {
-  addModelTableMappingPlugin,
-  addForwardPolyRelationFilter,
-  definePolymorphicCustom,
-  addBackwardPolyRelationFilter,
-} from '../../src/';
+import { PostGraphileConnectionFilterPolyPlugin } from '../../src/postgraphileConnectionFilterPolyPlugin';
 import { printSchema } from 'graphql/utilities';
 import debug from 'debug';
 
@@ -43,11 +38,8 @@ beforeAll(() => {
     ] = await Promise.all([
       createPostGraphileSchema(pgClient, ['p'], {
         appendPlugins: [
-          addModelTableMappingPlugin,
-          definePolymorphicCustom,
-          addForwardPolyRelationFilter,
-          addBackwardPolyRelationFilter,
           PgConnectionFilterPlugin,
+          PostGraphileConnectionFilterPolyPlugin,
         ],
         graphileBuildOptions: {
           connectionFilterRelations: true,

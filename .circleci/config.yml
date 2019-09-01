@@ -71,7 +71,7 @@ jobs:
           paths:
             - ~/.cache/yarn
       - run: yarn lint
-       - run:
+      - run:
           name: Setup Code Climate test-reporter
           command: |
             curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter

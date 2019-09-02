@@ -35,9 +35,10 @@ const getSqlSelectWhereKeysMatch = ({ sourceAlias,
 };
 export const addField = (
   fieldName, description, type, resolve, spec, hint, build, fields,
-  relationSpecByFieldName, Self,
+  relationSpecByFieldName, context,
 ) => {
-  const { extend, fieldWithHooks, connectionFilterRegisterResolver } = build;
+  const { extend, connectionFilterRegisterResolver } = build;
+  const { fieldWithHooks, Self } = context;
   // Field
   const toReturn = extend(
     fields,
@@ -228,7 +229,7 @@ export const addBackwardPolyRelationFilter = (builder: SchemaBuilder, option: Op
             build,
             newFields,
             backwardRelationSpecByFieldName,
-            Self,
+            context,
           );
         }
       } else {
@@ -244,7 +245,7 @@ export const addBackwardPolyRelationFilter = (builder: SchemaBuilder, option: Op
           build,
           newFields,
           backwardRelationSpecByFieldName,
-          Self,
+          context,
         );
       }
     }

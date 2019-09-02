@@ -158,7 +158,7 @@ export const addForwardPolyRelationFilter = (builder: SchemaBuilder) => {
         build,
         newFields,
         forwardPolyRelationSpecByFieldName,
-        Self,
+        context,
       );
     }
 

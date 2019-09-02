@@ -4,11 +4,9 @@ import { createPostGraphileSchema } from 'postgraphile-core';
 import { readdirSync, readFile as rawReadFile } from 'fs';
 import { resolve as resolvePath } from 'path';
 import PgConnectionFilterPlugin from 'postgraphile-plugin-connection-filter';
-import { PostGraphileConnectionFilterPolyPlugin } from '../../src/postgraphileConnectionFilterPolyPlugin';
+import { PostGraphileConnectionFilterPolyPlugin } from '../../src';
 import { printSchema } from 'graphql/utilities';
 import debug from 'debug';
-
-const debuger = debug.debug('graphql-build:schema');
 
 // const debug = debugger('graphile-build:schema');
 

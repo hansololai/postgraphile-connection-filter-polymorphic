@@ -2,6 +2,37 @@ query text {
   distinctFromInsensitive: allFilterables(filter:  {}) {
     ...nodes
   }
+  backwardFilterOnPolymorphic: allParents(filter:{
+    taggs:{
+      some:{
+        id:{equalTo:1}
+      }
+    }
+  }){
+    nodes{
+      id
+    }
+  }
+  forwardFilterOnPolymorphic: allTaggs(filter:{
+    parentAsTaggable:{
+      id:{equalTo:2}
+    }
+  }){
+    nodes{
+      id
+      content
+    }
+  }
+  backwardUniqueOnPolymorphic: allForwards(filter:{
+    uniqueTagg:{
+      content:{equalTo:"unique tagged on forward2"}
+    }
+  }){
+    nodes{
+      id
+      name
+    }
+  }
 }
 
 fragment nodes on FilterablesConnection {

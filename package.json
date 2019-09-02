@@ -46,7 +46,10 @@
     ],
     "transform": {
       "\\.(ts|tsx)$": "ts-jest"
-    }
+    },
+    "collectCoverageFrom": [
+      "src/**/*.ts"
+    ]
   },
   "files": [
     "src"

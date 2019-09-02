@@ -11,8 +11,17 @@ create table p.taggs (
   "taggable_type" text not null,
   "content" text
 );
+comment on column p.taggs.taggable_type is E'@isPolymorphic\n@polymorphicTo Parent\n@polymorphicTo Forward\n@polymorphicTo ForwardCompound';
 
-comment on column p.taggs.taggable_type is E'@isPolymorphic\n@polymorphicTo Parent\n@polymorphicTo Forward';
+create table p.unique_taggs (
+  id serial primary key,
+  "taggable_id" integer not null,
+  "taggable_type" text not null,
+  "content" text
+);
+
+comment on column p.unique_taggs.taggable_type is E'@isPolymorphic\n@polymorphicTo Parent\n@polymorphicTo Forward';
+alter table p.unique_taggs add constraint unique_tag_type_is_unique UNIQUE (taggable_id,taggable_type);
 
 create table p.parent (
   id serial primary key,

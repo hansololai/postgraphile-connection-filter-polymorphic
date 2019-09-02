@@ -14,7 +14,7 @@ const PostGraphileConnectionFilterPolyCorePlugin = makePluginByCombiningPlugins(
 export const PostGraphileConnectionFilterPolyPlugin = (
   builder: SchemaBuilder, options: Options,
 ) => {
-  builder.hook('build', build => {
+  builder.hook('build', (build) => {
     const pkg = require('../package.json');
 
     // Check dependencies
@@ -50,4 +50,3 @@ export const PostGraphileConnectionFilterPolyPlugin = (
 
   PostGraphileConnectionFilterPolyCorePlugin(builder, options);
 };
-

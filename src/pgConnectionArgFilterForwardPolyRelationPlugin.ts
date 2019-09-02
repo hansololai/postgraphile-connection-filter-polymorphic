@@ -107,32 +107,6 @@ export const addForwardPolyRelationFilter = (builder: SchemaBuilder) => {
 
     const forwardPolyRelationSpecByFieldName: { [x: string]: ForwardPolyRelationSpecType } = {};
 
-    // const addField = (fieldName, description, type, resolve, spec, hint) => {
-    //   // Field
-    //   newFields = extend(
-    //     newFields,
-    //     {
-    //       [fieldName]: fieldWithHooks(
-    //         fieldName,
-    //         {
-    //           description,
-    //           type,
-    //         },
-    //         {
-    //           isPgConnectionFilterField: true,
-    //         },
-    //       ),
-    //     },
-    //     hint,
-    //   );
-    //   // Spec for use in resolver
-    //   forwardPolyRelationSpecByFieldName = extend(forwardPolyRelationSpecByFieldName, {
-    //     [fieldName]: spec,
-    //   });
-    //   // Resolver
-    //   connectionFilterRegisterResolver(Self.name, fieldName, resolve);
-    // };
-
     for (const spec of forwardPolyRelationSpecs) {
       const { foreignTable, fieldName } = spec;
 

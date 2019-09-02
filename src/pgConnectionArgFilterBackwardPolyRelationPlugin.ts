@@ -12,7 +12,7 @@ export interface BackwardPolyRelationSpecType {
 }
 
 const getSqlSelectWhereKeysMatch = ({ sourceAlias,
-  foreignTableAlias, foreignTable, table, constraint, tablePrimaryKey, sql, inflection
+  foreignTableAlias, foreignTable, table, constraint, tablePrimaryKey, sql, inflection,
 }) => {
   const sourceTableId = `${constraint.name}_id`;
   const sourceTableType = `${constraint.name}_type`;
@@ -32,9 +32,11 @@ const getSqlSelectWhereKeysMatch = ({ sourceAlias,
   ${foreignTableAlias} where ${sqlKeysMatch}`;
 
   return sqlSelectWhereKeysMatch;
-}
-export const addField = (fieldName, description, type, resolve, spec, hint, build, fields,
-  relationSpecByFieldName, Self) => {
+};
+export const addField = (
+  fieldName, description, type, resolve, spec, hint, build, fields,
+  relationSpecByFieldName, Self,
+) => {
   const { extend, fieldWithHooks, connectionFilterRegisterResolver } = build;
   // Field
   const toReturn = extend(
@@ -264,7 +266,7 @@ export const addBackwardPolyRelationFilter = (builder: SchemaBuilder, option: Op
 
       const sqlSelectWhereKeysMatch = getSqlSelectWhereKeysMatch({
         sourceAlias, foreignTableAlias,
-        foreignTable, table, constraint, tablePrimaryKey, sql, inflection
+        foreignTable, table, constraint, tablePrimaryKey, sql, inflection,
       });
 
       const sqlFragment = connectionFilterResolve(
@@ -374,8 +376,8 @@ export const addBackwardPolyRelationFilter = (builder: SchemaBuilder, option: Op
       const foreignTableAlias = sql.identifier(Symbol());
       const sqlSelectWhereKeysMatch = getSqlSelectWhereKeysMatch({
         sourceAlias, foreignTableAlias,
-        foreignTable, table, constraint, tablePrimaryKey, sql, inflection
-      })
+        foreignTable, table, constraint, tablePrimaryKey, sql, inflection,
+      });
       const sqlFragment = connectionFilterResolve(
         fieldValue,
         foreignTableAlias,

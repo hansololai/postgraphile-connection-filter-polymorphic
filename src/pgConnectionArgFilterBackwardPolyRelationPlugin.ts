@@ -10,6 +10,52 @@ export interface BackwardPolyRelationSpecType {
   constraint: PgPolymorphicConstraint;
   isOneToMany: boolean;
 }
+
+const getSqlSelectWhereKeysMatch = ({ sourceAlias, foreignTableAlias, foreignTable, table, constraint, tablePrimaryKey, sql, inflection }) => {
+  const sourceTableId = `${constraint.name}_id`;
+  const sourceTableType = `${constraint.name}_type`;
+  const tableTypeName = inflection.tableType(table);
+  const sqlIdentifier = sql.identifier(
+    foreignTable.namespace.name,
+    foreignTable.name,
+  );
+
+  const sqlKeysMatch = sql.query`(${sql.fragment`${foreignTableAlias}.${sql.identifier(
+    sourceTableId,
+  )} = ${sourceAlias}.${sql.identifier(tablePrimaryKey.name)}`}) and (
+  ${sql.fragment`${foreignTableAlias}.${sql.identifier(
+    sourceTableType,
+  )} = ${sql.value(tableTypeName)}`})`;
+  const sqlSelectWhereKeysMatch = sql.query`select 1 from ${sqlIdentifier} as
+  ${foreignTableAlias} where ${sqlKeysMatch}`;
+
+  return sqlSelectWhereKeysMatch;
+}
+export const addField = (fieldName, description, type, resolve, spec, hint, build, fields, relationSpecByFieldName, Self) => {
+  const { extend, fieldWithHooks, connectionFilterRegisterResolver } = build;
+  // Field
+  const toReturn = extend(
+    fields,
+    {
+      [fieldName]: fieldWithHooks(
+        fieldName,
+        {
+          description,
+          type,
+        },
+        {
+          isPgConnectionFilterField: true,
+        },
+      ),
+    },
+    hint,
+  );
+  // Relation spec for use in resolver
+  relationSpecByFieldName[fieldName] = spec;
+  // Resolver
+  connectionFilterRegisterResolver(Self.name, fieldName, resolve);
+  return toReturn;
+};
 export const addBackwardPolyRelationFilter = (builder: SchemaBuilder, option: Options) => {
   // First add an inflector for polymorphic backrelation type name
   builder.hook('inflection', inflection => ({
@@ -107,31 +153,31 @@ export const addBackwardPolyRelationFilter = (builder: SchemaBuilder, option: Op
 
     let backwardRelationSpecByFieldName: { [x: string]: BackwardPolyRelationSpecType } = {};
 
-    const addField = (fieldName, description, type, resolve, spec, hint) => {
-      // Field
-      newFields = extend(
-        newFields,
-        {
-          [fieldName]: fieldWithHooks(
-            fieldName,
-            {
-              description,
-              type,
-            },
-            {
-              isPgConnectionFilterField: true,
-            },
-          ),
-        },
-        hint,
-      );
-      // Relation spec for use in resolver
-      backwardRelationSpecByFieldName = extend(backwardRelationSpecByFieldName, {
-        [fieldName]: spec,
-      });
-      // Resolver
-      connectionFilterRegisterResolver(Self.name, fieldName, resolve);
-    };
+    // const addField = (fieldName, description, type, resolve, spec, hint) => {
+    //   // Field
+    //   newFields = extend(
+    //     newFields,
+    //     {
+    //       [fieldName]: fieldWithHooks(
+    //         fieldName,
+    //         {
+    //           description,
+    //           type,
+    //         },
+    //         {
+    //           isPgConnectionFilterField: true,
+    //         },
+    //       ),
+    //     },
+    //     hint,
+    //   );
+    //   // Relation spec for use in resolver
+    //   backwardRelationSpecByFieldName = extend(backwardRelationSpecByFieldName, {
+    //     [fieldName]: spec,
+    //   });
+    //   // Resolver
+    //   connectionFilterRegisterResolver(Self.name, fieldName, resolve);
+    // };
 
     for (const spec of backwardRelationSpecs) {
       const { foreignTable, constraint, tablePrimaryKey, fieldName, isOneToMany } = spec;
@@ -164,7 +210,7 @@ export const addBackwardPolyRelationFilter = (builder: SchemaBuilder, option: Op
             );
           }
           const FilterManyType = connectionFilterTypesByTypeName[filterManyTypeName];
-          addField(
+          newFields = addField(
             fieldName,
             `Filter by the object’s \`${fieldName}\` relation.`,
             FilterManyType,
@@ -173,6 +219,10 @@ export const addBackwardPolyRelationFilter = (builder: SchemaBuilder, option: Op
             `Adding connection filter backward relation field from ${describePgEntity(
               table,
             )} to ${describePgEntity(foreignTable)}`,
+            build,
+            newFields,
+            backwardRelationSpecByFieldName,
+            Self
           );
         }
       } else {
@@ -185,9 +235,14 @@ export const addBackwardPolyRelationFilter = (builder: SchemaBuilder, option: Op
           `Adding connection filter backward relation field from ${describePgEntity(
             table,
           )} to ${describePgEntity(foreignTable)}`,
+          build,
+          newFields,
+          backwardRelationSpecByFieldName,
+          Self
         );
       }
     }
+
 
     function resolveSingle({ sourceAlias, fieldName, fieldValue, queryBuilder }) {
       if (fieldValue == null) return null;
@@ -201,24 +256,11 @@ export const addBackwardPolyRelationFilter = (builder: SchemaBuilder, option: Op
 
       const foreignTableTypeName = inflection.tableType(foreignTable);
       const foreignTableAlias = sql.identifier(Symbol());
-      const sqlIdentifier = sql.identifier(
-        foreignTable.namespace.name,
-        foreignTable.name,
-      );
-      const tableTypeName = inflection.tableType(table);
-      const sourceTableId = `${constraint.name}_id`;
-      const sourceTableType = `${constraint.name}_type`;
+
       const foreignTableFilterTypeName = inflection.filterType(foreignTableTypeName);
 
-      const sqlKeysMatch = sql.query`(${sql.fragment`${foreignTableAlias}.${sql.identifier(
-        sourceTableId,
-      )} = ${sourceAlias}.${sql.identifier(tablePrimaryKey.name)}`}) and (
-        ${sql.fragment`${foreignTableAlias}.${sql.identifier(
-        sourceTableType,
-      )} = ${sql.value(tableTypeName)}`})`;
+      const sqlSelectWhereKeysMatch = getSqlSelectWhereKeysMatch({ sourceAlias, foreignTableAlias, foreignTable, table, constraint, tablePrimaryKey, sql, inflection });
 
-      const sqlSelectWhereKeysMatch = sql.query`select 1 from ${sqlIdentifier}
-        as ${foreignTableAlias} where ${sqlKeysMatch}`;
       const sqlFragment = connectionFilterResolve(
         fieldValue,
         foreignTableAlias,
@@ -324,21 +366,7 @@ export const addBackwardPolyRelationFilter = (builder: SchemaBuilder, option: Op
         foreignTable, table, constraint, tablePrimaryKey,
       } = backwardRelationSpec as BackwardPolyRelationSpecType;
       const foreignTableAlias = sql.identifier(Symbol());
-      const sqlIdentifier = sql.identifier(foreignTable.namespace.name, foreignTable.name);
-      const tableTypeName = inflection.tableType(table);
-      const sourceTableId = `${constraint.name}_id`;
-      const sourceTableType = `${constraint.name}_type`;
-
-      const sqlKeysMatch = sql.query`(${sql.fragment`${foreignTableAlias}.${sql.identifier(
-        sourceTableId,
-      )} = ${sourceAlias}.${sql.identifier(tablePrimaryKey.name)}`}) and (
-        ${sql.fragment`${foreignTableAlias}.${sql.identifier(sourceTableType)} = ${sql.value(
-        tableTypeName,
-      )}`})`;
-
-      const sqlSelectWhereKeysMatch = sql.query`select 1 from ${sqlIdentifier} as
-        ${foreignTableAlias} where ${sqlKeysMatch}`;
-
+      const sqlSelectWhereKeysMatch = getSqlSelectWhereKeysMatch({ sourceAlias, foreignTableAlias, foreignTable, table, constraint, tablePrimaryKey, sql, inflection })
       const sqlFragment = connectionFilterResolve(
         fieldValue,
         foreignTableAlias,

@@ -1,5 +1,6 @@
 import { SchemaBuilder, Options } from 'postgraphile';
 import { PgPolymorphicConstraintByName, PgPolymorphicConstraint } from './pgDefinePolymorphicCustomPlugin';
+import { addField } from './pgConnectionArgFilterBackwardPolyRelationPlugin';
 
 export interface ForwardPolyRelationSpecType {
   table: any;
@@ -106,31 +107,31 @@ export const addForwardPolyRelationFilter = (builder: SchemaBuilder) => {
 
     let forwardPolyRelationSpecByFieldName: { [x: string]: ForwardPolyRelationSpecType } = {};
 
-    const addField = (fieldName, description, type, resolve, spec, hint) => {
-      // Field
-      newFields = extend(
-        newFields,
-        {
-          [fieldName]: fieldWithHooks(
-            fieldName,
-            {
-              description,
-              type,
-            },
-            {
-              isPgConnectionFilterField: true,
-            },
-          ),
-        },
-        hint,
-      );
-      // Spec for use in resolver
-      forwardPolyRelationSpecByFieldName = extend(forwardPolyRelationSpecByFieldName, {
-        [fieldName]: spec,
-      });
-      // Resolver
-      connectionFilterRegisterResolver(Self.name, fieldName, resolve);
-    };
+    // const addField = (fieldName, description, type, resolve, spec, hint) => {
+    //   // Field
+    //   newFields = extend(
+    //     newFields,
+    //     {
+    //       [fieldName]: fieldWithHooks(
+    //         fieldName,
+    //         {
+    //           description,
+    //           type,
+    //         },
+    //         {
+    //           isPgConnectionFilterField: true,
+    //         },
+    //       ),
+    //     },
+    //     hint,
+    //   );
+    //   // Spec for use in resolver
+    //   forwardPolyRelationSpecByFieldName = extend(forwardPolyRelationSpecByFieldName, {
+    //     [fieldName]: spec,
+    //   });
+    //   // Resolver
+    //   connectionFilterRegisterResolver(Self.name, fieldName, resolve);
+    // };
 
     for (const spec of forwardPolyRelationSpecs) {
       const { foreignTable, fieldName } = spec;
@@ -145,7 +146,7 @@ export const addForwardPolyRelationFilter = (builder: SchemaBuilder) => {
       );
       if (!ForeignTableFilterType) continue;
 
-      addField(
+      newFields = addField(
         fieldName,
         `Filter by the object’s \`${fieldName}\` polymorphic relation.`,
         ForeignTableFilterType,
@@ -154,6 +155,10 @@ export const addForwardPolyRelationFilter = (builder: SchemaBuilder) => {
         `Adding connection filter forward polymorphic relation field from ${describePgEntity(
           table,
         )} to ${describePgEntity(foreignTable)}`,
+        build,
+        newFields,
+        forwardPolyRelationSpecByFieldName,
+        Self
       );
     }
 

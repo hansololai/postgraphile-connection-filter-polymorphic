@@ -126,14 +126,15 @@ export const addBackwardPolyRelationFilter = (builder: SchemaBuilder, option: Op
         const sourceTableId = `${currentPoly.name}_id`;
         const sourceTableType = `${currentPoly.name}_type`;
         const isForeignKeyUnique = introspectionResultsByKind.constraint.find((c) => {
-          if (c.classId !== foreignTable.id) return false;
           // Only if the xxx_type, xxx_id are unique constraint
-          if (c.keyAttributeNums.length !== 2) return false;
           // It must be an unique constraint
-          if (c.type !== 'u') return false;
+          if (c.classId !== foreignTable.id
+            || c.keyAttributeNums.length !== 2
+            || c.type !== 'u'
+            || !c.keyAttributes.find(a => a.name === sourceTableId)
+            || !c.keyAttributes.find(a => a.name === sourceTableType)
+          ) return false;
           // the two attributes must be xx_type, xx_id
-          if (!c.keyAttributes.find(a => a.name === sourceTableId)) return false;
-          if (!c.keyAttributes.find(a => a.name === sourceTableType)) return false;
           return true;
         });
         const fieldName = isForeignKeyUnique ? inflection.camelCase(

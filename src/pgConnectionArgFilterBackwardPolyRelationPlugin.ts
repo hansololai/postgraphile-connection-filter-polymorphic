@@ -11,7 +11,9 @@ export interface BackwardPolyRelationSpecType {
   isOneToMany: boolean;
 }
 
-const getSqlSelectWhereKeysMatch = ({ sourceAlias, foreignTableAlias, foreignTable, table, constraint, tablePrimaryKey, sql, inflection }) => {
+const getSqlSelectWhereKeysMatch = ({ sourceAlias,
+  foreignTableAlias, foreignTable, table, constraint, tablePrimaryKey, sql, inflection
+}) => {
   const sourceTableId = `${constraint.name}_id`;
   const sourceTableType = `${constraint.name}_type`;
   const tableTypeName = inflection.tableType(table);
@@ -31,7 +33,8 @@ const getSqlSelectWhereKeysMatch = ({ sourceAlias, foreignTableAlias, foreignTab
 
   return sqlSelectWhereKeysMatch;
 }
-export const addField = (fieldName, description, type, resolve, spec, hint, build, fields, relationSpecByFieldName, Self) => {
+export const addField = (fieldName, description, type, resolve, spec, hint, build, fields,
+  relationSpecByFieldName, Self) => {
   const { extend, fieldWithHooks, connectionFilterRegisterResolver } = build;
   // Field
   const toReturn = extend(
@@ -152,7 +155,7 @@ export const addBackwardPolyRelationFilter = (builder: SchemaBuilder, option: Op
         return memo;
       }, [] as BackwardPolyRelationSpecType[]);
 
-    let backwardRelationSpecByFieldName: { [x: string]: BackwardPolyRelationSpecType } = {};
+    const backwardRelationSpecByFieldName: { [x: string]: BackwardPolyRelationSpecType } = {};
 
     // const addField = (fieldName, description, type, resolve, spec, hint) => {
     //   // Field
@@ -223,7 +226,7 @@ export const addBackwardPolyRelationFilter = (builder: SchemaBuilder, option: Op
             build,
             newFields,
             backwardRelationSpecByFieldName,
-            Self
+            Self,
           );
         }
       } else {
@@ -239,11 +242,10 @@ export const addBackwardPolyRelationFilter = (builder: SchemaBuilder, option: Op
           build,
           newFields,
           backwardRelationSpecByFieldName,
-          Self
+          Self,
         );
       }
     }
-
 
     function resolveSingle({ sourceAlias, fieldName, fieldValue, queryBuilder }) {
       if (fieldValue == null) return null;
@@ -260,7 +262,10 @@ export const addBackwardPolyRelationFilter = (builder: SchemaBuilder, option: Op
 
       const foreignTableFilterTypeName = inflection.filterType(foreignTableTypeName);
 
-      const sqlSelectWhereKeysMatch = getSqlSelectWhereKeysMatch({ sourceAlias, foreignTableAlias, foreignTable, table, constraint, tablePrimaryKey, sql, inflection });
+      const sqlSelectWhereKeysMatch = getSqlSelectWhereKeysMatch({
+        sourceAlias, foreignTableAlias,
+        foreignTable, table, constraint, tablePrimaryKey, sql, inflection
+      });
 
       const sqlFragment = connectionFilterResolve(
         fieldValue,
@@ -367,7 +372,10 @@ export const addBackwardPolyRelationFilter = (builder: SchemaBuilder, option: Op
         foreignTable, table, constraint, tablePrimaryKey,
       } = backwardRelationSpec as BackwardPolyRelationSpecType;
       const foreignTableAlias = sql.identifier(Symbol());
-      const sqlSelectWhereKeysMatch = getSqlSelectWhereKeysMatch({ sourceAlias, foreignTableAlias, foreignTable, table, constraint, tablePrimaryKey, sql, inflection })
+      const sqlSelectWhereKeysMatch = getSqlSelectWhereKeysMatch({
+        sourceAlias, foreignTableAlias,
+        foreignTable, table, constraint, tablePrimaryKey, sql, inflection
+      })
       const sqlFragment = connectionFilterResolve(
         fieldValue,
         foreignTableAlias,

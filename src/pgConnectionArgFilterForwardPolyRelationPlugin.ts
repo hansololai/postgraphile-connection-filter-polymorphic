@@ -105,7 +105,7 @@ export const addForwardPolyRelationFilter = (builder: SchemaBuilder) => {
           return [...acc, ...toReturn];
         }, [] as ForwardPolyRelationSpecType[]);
 
-    let forwardPolyRelationSpecByFieldName: { [x: string]: ForwardPolyRelationSpecType } = {};
+    const forwardPolyRelationSpecByFieldName: { [x: string]: ForwardPolyRelationSpecType } = {};
 
     // const addField = (fieldName, description, type, resolve, spec, hint) => {
     //   // Field
@@ -158,7 +158,7 @@ export const addForwardPolyRelationFilter = (builder: SchemaBuilder) => {
         build,
         newFields,
         forwardPolyRelationSpecByFieldName,
-        Self
+        Self,
       );
     }
 

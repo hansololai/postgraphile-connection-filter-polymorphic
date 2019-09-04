@@ -53,7 +53,8 @@
     ]
   },
   "files": [
-    "src"
+    "src",
+    "dist"
   ],
   "engines": {
     "node": ">=8.6"

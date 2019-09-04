@@ -92,7 +92,8 @@ jobs:
   deploy:
     docker: # run the steps with Docker
       - image: circleci/node:11-stretch # ...with this image as the primary container; this is where all `steps` will run
-    - attach_workspace:
+    steps:
+      - attach_workspace:
           at: ~/
       - run:
           name: Build Repo
@@ -112,16 +113,16 @@ workflows:
             branches:
               ignore: master
   build-deploy:
-      - node10_pg11:
-          filters: # this is necessary here, because it is by default no run on any tags, then the deploy won't run on tags
-            tags:
-              only: /.*/
-      - deploy:
-          requires:
-            - node10_pg11 
-          filters:
-            # Only deploy when there's tags pushed
-            tags:
-              only: /^v.*/
-            branches:
-              ignore: /.*/
+    - node10_pg11:
+        filters: # this is necessary here, because it is by default no run on any tags, then the deploy won't run on tags
+          tags:
+            only: /.*/
+    - deploy:
+        requires:
+          - node10_pg11
+        filters:
+          # Only deploy when there's tags pushed
+          tags:
+            only: /^v.*/
+          branches:
+            ignore: /.*/

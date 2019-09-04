@@ -7,7 +7,8 @@
   "scripts": {
     "lint": "tslint --config tslint.json --project tsconfig.json",
     "test": "scripts/test",
-    "build": "tsc --declaration"
+    "build": "tsc --declaration",
+    "release-it": "yarn version --patch && git push --follow-tags"
   },
   "repository": {
     "type": "git",

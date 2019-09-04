@@ -104,14 +104,14 @@ jobs:
 
 workflows:
   version: 2
-  test:
-    jobs:
-      # - node8.10_pg9.6postgis
-      # - node10_pg10postgis
-      - node10_pg11:
-          filter:
-            branches:
-              ignore: master
+  # test:
+  # jobs:
+  #   # - node8.10_pg9.6postgis
+  #   # - node10_pg10postgis
+  #   - node10_pg11:
+  #       filter:
+  #         branches:
+  #           ignore: master
   build-deploy:
     - node10_pg11:
         filters: # this is necessary here, because it is by default no run on any tags, then the deploy won't run on tags

@@ -1,32 +1,33 @@
 {
   "name": "postgraphile-plugin-connection-filter-polymorphic",
-  "version": "1.1.0",
-  "description": "Extention of filtering of Connections in PostGraphile",
-  "main": "index.js",
+  "version": "1.1.6",
+  "description": "Extention of filtering of Connections to allow Polymorphic assocations in PostGraphile",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "scripts": {
     "lint": "tslint --config tslint.json --project tsconfig.json",
     "test": "scripts/test",
-    "build": "tsc"
+    "build": "tsc --declaration",
+    "release-it": "yarn version --patch && git push --follow-tags"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/graphile-contrib/postgraphile-plugin-connection-filter.git"
+    "url": "git+https://github.com/hansololai/postgraphile-connection-filter-polymorphic"
   },
-  "author": "Matt Bretl",
+  "author": "Han Lai",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/graphile-contrib/postgraphile-plugin-connection-filter/issues"
+    "url": "https://github.com/hansololai/postgraphile-connection-filter-polymorphic/issues"
   },
-  "dependencies": {
+  "dependencies": {},
+  "devDependencies": {
     "@types/debug": "^4.1.5",
     "@types/jest": "^24.0.18",
     "graphile-utils": "^4.4.4",
-    "postgraphile": "^4.4.3"
-  },
-  "devDependencies": {
     "graphql": "^14.0.2",
     "jest": "^24.8.0",
     "pg": "^7.8.0",
+    "postgraphile": "^4.0.0",
     "postgraphile-core": "4.4.4",
     "postgraphile-plugin-connection-filter": "^1.1.2",
     "ts-jest": "^24.0.0",
@@ -52,7 +53,8 @@
     ]
   },
   "files": [
-    "src"
+    "src",
+    "dist"
   ],
   "engines": {
     "node": ">=8.6"

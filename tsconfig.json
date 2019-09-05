@@ -1,11 +1,7 @@
 {
   "compilerOptions": {
     "allowSyntheticDefaultImports": true,
-    "lib": [
-      "es2017",
-      "dom"
-    ],
-    "allowJs": true,
+    "lib": ["es2017", "dom"],
     "sourceMap": true,
     "experimentalDecorators": true,
     "strict": true,
@@ -21,13 +17,8 @@
       }
     ]
   },
-  "include": [
-    "src/**/*.ts",
-    "*.ts",
-  ],
-  "exclude": [
-    "node_modules"
-  ],
+  "include": ["src/**/*.ts", "*.ts"],
+  "exclude": ["node_modules"],
   "rules": {
     "max-line-length": [
       true,

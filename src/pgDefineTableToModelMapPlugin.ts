@@ -36,8 +36,9 @@ export const addModelTableMappingPlugin = (builder: SchemaBuilder, options: Opti
         return acc;
       }
       const procedureAttriutesMap: AttributesMap = procedure
-        .filter((p) => p.name.startsWith(`${cur.name}_`))
+        .filter(p => p.name.startsWith(`${cur.name}_`))
         .reduce((a, c) => {
+          // Should probably use inflection
           const k = singularize(camelCase(c.name.replace(`${cur.name}_`, '')));
           a[k] = c;
           return a;

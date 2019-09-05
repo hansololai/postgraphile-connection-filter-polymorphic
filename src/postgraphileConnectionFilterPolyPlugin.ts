@@ -38,9 +38,7 @@ export const PostGraphileConnectionFilterPolyPlugin = (
         );
       }
     };
-    depends('graphile-build-pg', '^4.4.0');
     depends('postgraphile-plugin-connection-filter', '^1.0.0');
-    // depends("@graphile/postgis", "0.1.0");
 
     // Register this plugin
     build.versions = build.extend(build.versions, { [pkg.name]: pkg.version });

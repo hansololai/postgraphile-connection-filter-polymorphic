@@ -15,7 +15,7 @@ jobs:
           keys:
             - yarn-packages-{{ checksum "yarn.lock" }}
       - run:
-          command: yarn install --frozen-lockfile
+          command: yarn install
       - save_cache:
           key: yarn-packages-{{ checksum "yarn.lock" }}
           paths:
@@ -40,7 +40,7 @@ jobs:
           keys:
             - yarn-packages-{{ checksum "yarn.lock" }}
       - run:
-          command: yarn install --frozen-lockfile
+          command: yarn install
       - save_cache:
           key: yarn-packages-{{ checksum "yarn.lock" }}
           paths:
@@ -67,7 +67,7 @@ jobs:
           keys:
             - yarn-packages-{{ checksum "yarn.lock" }}
       - run:
-          command: yarn install --frozen-lockfile
+          command: yarn install
       - save_cache:
           key: yarn-packages-{{ checksum "yarn.lock" }}
           paths:

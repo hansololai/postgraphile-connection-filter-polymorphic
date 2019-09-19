@@ -54,6 +54,11 @@ and hoping to find the tag(id:50). You won't be able to do it because the `userA
 ### What this plugin does
 This plugin will create the forward relationship. (this `userAsTaggable`) field, and also the backward relationship. (the `taggs` field on User Connection, and other connections that is associated). Also if the `taggable_type` and `taggable_id` are has an unique constraint. The backward filter is not a single object filter, instead of a multi-field, which consist of three fields `some`,`every`,`none`. 
 
+### Install
+```
+yarn add postgraphile-connection-filter-polymorphic
+```
+
 ### How to use
 This plugin uses [smart comments](https://www.graphile.org/postgraphile/smart-comments/) to know the association. Originally I was planning to use a distinct query on the table to find all possible associations, but that took a long time and is not very customizable. The smart comments are  on the `type` field
 ```

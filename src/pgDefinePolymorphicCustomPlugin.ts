@@ -47,6 +47,12 @@ export const definePolymorphicCustom = (builder: SchemaBuilder, options: Options
         });
         const polyConstraintsOfClass = typeAttributes.map((attribute) => {
           const { name, tags: { polymorphicTo = [] } } = attribute;
+          let targetTables: string[] = [];
+          if (!Array.isArray(polymorphicTo)) {
+            targetTables = [polymorphicTo];
+          }else {
+            targetTables = polymorphicTo;
+          }
           const polymorphicKey = name.substring(0, name.length - 5);
           const newPolyConstraint: PgPolymorphicConstraint = {
             name: polymorphicKey,

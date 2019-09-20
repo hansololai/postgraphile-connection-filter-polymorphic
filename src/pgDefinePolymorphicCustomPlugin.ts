@@ -43,7 +43,8 @@ export const definePolymorphicCustom = (builder: SchemaBuilder, options: Options
         const allCurrentClassAttributes = Object.values(curClassAttributes);
         const typeAttributes = allCurrentClassAttributes.filter((attribute) => {
           // Must be a xxx_type attribute, and also tags need to have "isPolymorphic"
-          return attribute.name.endsWith('_type') && !!attribute.tags.isPolymorphic;
+          return attribute.name.endsWith('_type')
+            && (!!attribute.tags.isPolymorphic || attribute.type.type === 'e');
         });
         const polyConstraintsOfClass = typeAttributes.map((attribute) => {
           const { name, tags: { polymorphicTo = [] } } = attribute;

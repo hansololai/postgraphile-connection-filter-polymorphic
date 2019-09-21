@@ -47,8 +47,9 @@ export const definePolymorphicCustom = (builder: SchemaBuilder, options: Options
             && (!!attribute.tags.isPolymorphic || attribute.type.type === 'e');
         });
         const polyConstraintsOfClass = typeAttributes.map((attribute) => {
-          const { name, tags: { polymorphicTo = [] } } = attribute;
+          const { name, tags: { polymorphicTo = [] }, type } = attribute;
           const polymorphicKey = name.substring(0, name.length - 5);
+
           const newPolyConstraint: PgPolymorphicConstraint = {
             name: polymorphicKey,
             from: curClass.id,

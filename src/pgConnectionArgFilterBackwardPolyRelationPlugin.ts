@@ -148,7 +148,7 @@ export const addBackwardPolyRelationFilter = (builder: SchemaBuilder, option: Op
           return true;
         });
         const fieldName = inflection.backwardRelationByPolymorphic(
-          foreignTable, currentPoly.name, isForeignKeyUnique
+          foreignTable, currentPoly.name, isForeignKeyUnique,
         );
         // const fieldName = isForeignKeyUnique ? inflection.camelCase(
         //   inflection.singularize(foreignTable.name))

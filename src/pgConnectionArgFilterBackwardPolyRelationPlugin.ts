@@ -70,8 +70,8 @@ export const addBackwardPolyRelationFilter = (builder: SchemaBuilder, option: Op
       return `${this.filterManyType(table, foreignTable)}Poly`;
     },
     backwardRelationByPolymorphic(table, polymorphicName: string, isUnique: boolean) {
-      // const fieldName = isUnique ? this.singularize(table.name) : table.name;
-      return this.camelCase(`${isUnique ? this.singularize(polymorphicName) : polymorphicName}`);
+      const fieldName = isUnique ? this.singularize(table.name) : table.name;
+      return this.camelCase(`${fieldName}-as-${polymorphicName}`);
     },
   }));
   const { pgSimpleCollections } = option;

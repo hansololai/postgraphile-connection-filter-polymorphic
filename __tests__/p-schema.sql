@@ -26,7 +26,7 @@ create table p.unique_taggs
 );
 
 comment on column p.unique_taggs.unique_taggable_type is E'@isPolymorphic\n@polymorphicTo Parent\n@polymorphicTo Forward';
-alter table p.unique_taggs add constraint unique_tag_type_is_unique UNIQUE (taggable_id,taggable_type);
+alter table p.unique_taggs add constraint unique_tag_type_is_unique UNIQUE (unique_taggable_id,unique_taggable_type);
 
 create table p.parent
 (

@@ -3,7 +3,7 @@ query text {
     ...nodes
   }
   backwardFilterOnPolymorphic: allParents(filter:{
-    taggs:{
+    taggable:{
       some:{
         id:{equalTo:1}
       }
@@ -24,7 +24,7 @@ query text {
     }
   }
   backwardUniqueOnPolymorphic: allForwards(filter:{
-    uniqueTagg:{
+    uniqueTaggable:{
       content:{equalTo:"unique tagged on forward2"}
     }
   }){

@@ -2280,7 +2280,7 @@ type Query implements Node {
     nodeId: ID!
   ): UniqueTagg
   uniqueTaggById(id: Int!): UniqueTagg
-  uniqueTaggByTaggableIdAndTaggableType(taggableId: Int!, taggableType: String!): UniqueTagg
+  uniqueTaggByUniqueTaggableIdAndUniqueTaggableType(uniqueTaggableId: Int!, uniqueTaggableType: String!): UniqueTagg
 }
 
 type RangeArrayType implements Node {
@@ -2662,8 +2662,8 @@ type UniqueTagg implements Node {
   A globally unique identifier. Can be used in various places throughout the system to identify this single value.
   \\"\\"\\"
   nodeId: ID!
-  taggableId: Int!
-  taggableType: String!
+  uniqueTaggableId: Int!
+  uniqueTaggableType: String!
 }
 
 \\"\\"\\"A connection to a list of \`UniqueTagg\` values.\\"\\"\\"
@@ -2701,10 +2701,10 @@ enum UniqueTaggsOrderBy {
   NATURAL
   PRIMARY_KEY_ASC
   PRIMARY_KEY_DESC
-  TAGGABLE_ID_ASC
-  TAGGABLE_ID_DESC
-  TAGGABLE_TYPE_ASC
-  TAGGABLE_TYPE_DESC
+  UNIQUE_TAGGABLE_ID_ASC
+  UNIQUE_TAGGABLE_ID_DESC
+  UNIQUE_TAGGABLE_TYPE_ASC
+  UNIQUE_TAGGABLE_TYPE_DESC
 }
 
 \\"\\"\\"

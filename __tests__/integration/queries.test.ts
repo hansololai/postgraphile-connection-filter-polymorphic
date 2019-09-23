@@ -47,8 +47,8 @@ beforeAll(() => {
       }),
     ]);
 
-    debug(printSchema(normal));
-    // printSchema(normal);
+    // debug(printSchema(normal));
+    printSchema(normal);
     return {
       normal,
     };
@@ -65,8 +65,10 @@ beforeAll(() => {
     // Get a new Postgres client instance.
     return await withPgClient(async pgClient => {
       // Add data to the client instance we are using.
+      console.log('adding data');
 
       await pgClient.query(await kitchenSinkData());
+      console.log('done adding data');
       // Run all of our queries in parallel.
       return await Promise.all(
         queryFileNames.map(async fileName => {

@@ -5,6 +5,8 @@
     "sourceMap": true,
     "experimentalDecorators": true,
     "strict": true,
+    // "noUnusedLocals": true,
+    // "strictNullChecks": true,
     "noImplicitAny": false,
     "module": "commonjs",
     "target": "es6",

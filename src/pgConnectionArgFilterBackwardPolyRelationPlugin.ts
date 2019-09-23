@@ -69,10 +69,15 @@ export const addBackwardPolyRelationFilter = (builder: SchemaBuilder, option: Op
     filterManyPolyType(table, foreignTable) {
       return `${this.filterManyType(table, foreignTable)}Poly`;
     },
-    backwardRelationByPolymorphic(table, polymorphicName: string, isUnique: boolean) {
-      // const fieldName = isUnique ? this.singularize(table.name) : table.name;
+    backwardRelationByPolymorphic(
+      table,
+      polyConstraint: PgPolymorphicConstraint,
+      isUnique: boolean) {
+      const { backwardAssociationName } = polyConstraint;
+      const name = backwardAssociationName || table.name;
+      const fieldName = isUnique ? this.singularize(name) : this.pluralize(name);
       // return this.camelCase(`${fieldName}-as-${polymorphicName}`);
-      return this.camelCase(`${isUnique ? this.singularize(polymorphicName) : polymorphicName}`);
+      return this.camelCase(fieldName);
     },
   }));
   const { pgSimpleCollections } = option;
@@ -149,7 +154,7 @@ export const addBackwardPolyRelationFilter = (builder: SchemaBuilder, option: Op
           return true;
         });
         const fieldName = inflection.backwardRelationByPolymorphic(
-          foreignTable, currentPoly.name, isForeignKeyUnique,
+          foreignTable, currentPoly, isForeignKeyUnique,
         );
         // const fieldName = isForeignKeyUnique ? inflection.camelCase(
         //   inflection.singularize(foreignTable.name))

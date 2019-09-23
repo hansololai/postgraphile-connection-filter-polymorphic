@@ -2,6 +2,7 @@ import { SchemaBuilder, Options } from 'postgraphile';
 export interface PgPolymorphicConstraint {
   name: string;
   from: string; // classId
+  backwardAssociationName?: string; // field name for backward association. (default table name)
   to: string[]; // due to limitation at the time, it is the ModelName array.
 }
 export type PgPolymorphicConstraintByName = PgPolymorphicConstraint[];
@@ -46,7 +47,7 @@ export const definePolymorphicCustom = (builder: SchemaBuilder, options: Options
           return attribute.name.endsWith('_type') && !!attribute.tags.isPolymorphic;
         });
         const polyConstraintsOfClass = typeAttributes.map((attribute) => {
-          const { name, tags: { polymorphicTo = [] } } = attribute;
+          const { name, tags: { polymorphicTo = [], isPolymorphic } } = attribute;
           let targetTables: string[] = [];
           if (!Array.isArray(polymorphicTo)) {
             targetTables = [polymorphicTo];
@@ -60,6 +61,10 @@ export const definePolymorphicCustom = (builder: SchemaBuilder, options: Options
             from: curClass.id,
             to: targetTables,
           };
+          if (typeof isPolymorphic === 'string') {
+            // There is a backward association name for this
+            newPolyConstraint.backwardAssociationName = isPolymorphic;
+          }
           return newPolyConstraint;
         });
 

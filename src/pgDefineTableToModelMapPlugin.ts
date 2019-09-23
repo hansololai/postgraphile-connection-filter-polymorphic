@@ -18,7 +18,6 @@ export const addModelTableMappingPlugin = (builder: SchemaBuilder, options: Opti
   const { pgSchemas = [] } = options as any;
   builder.hook('build', (build) => {
     const {
-      pgSql: sql,
       pgIntrospectionResultsByKind: { procedure, class: pgClasses },
       inflection: { upperCamelCase, singularize, camelCase },
     } = build;

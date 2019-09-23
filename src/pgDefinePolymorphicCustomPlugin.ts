@@ -53,11 +53,12 @@ export const definePolymorphicCustom = (builder: SchemaBuilder, options: Options
           }else {
             targetTables = polymorphicTo;
           }
+          targetTables = Array.from(new Set<string>(targetTables));
           const polymorphicKey = name.substring(0, name.length - 5);
           const newPolyConstraint: PgPolymorphicConstraint = {
             name: polymorphicKey,
             from: curClass.id,
-            to: polymorphicTo,
+            to: targetTables,
           };
           return newPolyConstraint;
         });

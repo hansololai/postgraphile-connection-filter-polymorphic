@@ -71,11 +71,7 @@ const withPrepopulatedDb = async fn => {
     throw new Error("No prepopulated vars");
   }
   let err;
-  try {
-    await fn(client, vars);
-  } catch (e) {
-    err = e;
-  }
+  await fn(client, vars);
   try {
     await client.query("ROLLBACK TO SAVEPOINT pristine;");
   } catch (e) {

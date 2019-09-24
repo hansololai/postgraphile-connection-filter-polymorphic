@@ -4,7 +4,9 @@ insert into p.parent(id, name) values
 
 insert into p.taggs(id,taggable_id,taggable_type,content) values 
 (1,1,'Parent','tagged on parent1'),
-(2,2,'Parent','tagged on parent2');
+(2,2,'Parent','tagged on parent2'),
+(3,2,'Parent','2nd tagged on parent2');
+
 
 insert into p.unique_taggs(id,unique_taggable_id,unique_taggable_type,content) values 
 (1,1,'Parent','unique tagged on parent1'),

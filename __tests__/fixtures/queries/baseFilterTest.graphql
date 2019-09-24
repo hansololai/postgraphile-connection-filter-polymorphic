@@ -3,9 +3,9 @@ query text {
     ...nodes
   }
   backwardFilterOnPolymorphic: allParents(filter:{
-    taggable:{
+    taggs:{
       some:{
-        id:{equalTo:1}
+        content:{equalTo:"tagged on parent1"}
       }
     }
   }){
@@ -13,6 +13,28 @@ query text {
       id
     }
   }
+  backwardFilterOnPolymorphicEvery: allParents(filter:{
+    taggs:{
+      every:{
+        content:{includes:"parent2"}
+      }
+    }
+  }){
+    nodes{
+      id
+    }
+  }
+  backwardFilterOnPolymorphicNone: allParents(filter:{
+    taggs:{
+      none:{
+        content:{includes:"parent2"}
+      }
+    }
+  }){
+    nodes{
+      id
+    }
+  } 
   forwardFilterOnPolymorphic: allTaggs(filter:{
     parentAsTaggable:{
       id:{equalTo:2}
@@ -24,7 +46,7 @@ query text {
     }
   }
   backwardUniqueOnPolymorphic: allForwards(filter:{
-    uniqueTaggable:{
+    uniqueTagg:{
       content:{equalTo:"unique tagged on forward2"}
     }
   }){

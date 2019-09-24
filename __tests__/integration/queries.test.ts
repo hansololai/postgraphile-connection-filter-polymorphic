@@ -65,10 +65,8 @@ beforeAll(() => {
     // Get a new Postgres client instance.
     return await withPgClient(async pgClient => {
       // Add data to the client instance we are using.
-      console.log('adding data');
 
       await pgClient.query(await kitchenSinkData());
-      console.log('done adding data');
       // Run all of our queries in parallel.
       return await Promise.all(
         queryFileNames.map(async fileName => {
@@ -82,8 +80,9 @@ beforeAll(() => {
           const result = await graphql(gqlSchema, query, null, {
             pgClient,
           });
-          if (result.errors) {
+          if (Array.isArray(result.errors) && result.errors.length > 0) {
             console.log(result.errors.map(e => e.originalError)); // eslint-disable-line no-console
+            throw new Error(`Query failed! ${result.errors.map(e => e.message).join(',')}`);
           }
           return result;
         }),

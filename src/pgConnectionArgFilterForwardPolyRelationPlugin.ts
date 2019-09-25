@@ -1,12 +1,13 @@
-import { SchemaBuilder, Options } from 'postgraphile';
+import { SchemaBuilder } from 'postgraphile';
 import { PgPolymorphicConstraintByName, PgPolymorphicConstraint } from './pgDefinePolymorphicCustomPlugin';
 import { addField } from './pgConnectionArgFilterBackwardPolyRelationPlugin';
+import { GraphilePgClass, GraphilePgAttribute, GraphileBuild } from './postgraphile_types';
 
 export interface ForwardPolyRelationSpecType {
-  table: any;
-  foreignTable: any;
+  table: GraphilePgClass;
+  foreignTable: GraphilePgClass;
   fieldName: string;
-  foreignPrimaryKey: any;
+  foreignPrimaryKey: GraphilePgAttribute;
   constraint: PgPolymorphicConstraint;
 }
 export const addForwardPolyRelationFilter = (builder: SchemaBuilder) => {
@@ -32,7 +33,7 @@ export const addForwardPolyRelationFilter = (builder: SchemaBuilder) => {
       connectionFilterType,
       mapFieldToPgTable,
       pgPolymorphicClassAndTargetModels = [],
-    } = build;
+    } = build as GraphileBuild;
     const {
       fieldWithHooks,
       scope: { pgIntrospection: table, isPgConnectionFilter },
@@ -55,7 +56,7 @@ export const addForwardPolyRelationFilter = (builder: SchemaBuilder) => {
           if (!t) {
             return null;
           }
-          return classById[t.id];
+          return classById[t.id] as GraphilePgClass;
         })
         .filter((c) => {
           return c && c.classKind === 'r';

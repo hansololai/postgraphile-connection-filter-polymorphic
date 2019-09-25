@@ -2,11 +2,12 @@ import { SchemaBuilder, Options } from 'postgraphile';
 import {
   PgPolymorphicConstraintByName, PgPolymorphicConstraint,
 } from './pgDefinePolymorphicCustomPlugin';
+import { GraphilePgClass, GraphilePgAttribute } from './postgraphile_types';
 export interface BackwardPolyRelationSpecType {
-  table: any;
-  foreignTable: any;
+  table: GraphilePgClass;
+  foreignTable: GraphilePgClass;
   fieldName: string;
-  tablePrimaryKey: any;
+  tablePrimaryKey: GraphilePgAttribute;
   constraint: PgPolymorphicConstraint;
   isOneToMany: boolean;
 }

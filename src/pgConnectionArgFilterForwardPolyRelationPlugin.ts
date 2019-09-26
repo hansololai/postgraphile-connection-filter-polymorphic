@@ -10,6 +10,11 @@ export interface ForwardPolyRelationSpecType {
   foreignPrimaryKey: GraphilePgAttribute;
   constraint: PgPolymorphicConstraint;
 }
+
+function notNull<T>(v: T | null): v is T {
+  if (!!v) return true;
+  return false;
+}
 export const addForwardPolyRelationFilter = (builder: SchemaBuilder) => {
   // builder.hook('inflection', (inflection) => ({
   //   ...inflection,
@@ -56,11 +61,12 @@ export const addForwardPolyRelationFilter = (builder: SchemaBuilder) => {
           if (!t) {
             return null;
           }
-          return classById[t.id] as GraphilePgClass;
-        })
-        .filter((c) => {
-          return c && c.classKind === 'r';
-        })
+          const c = classById[t.id];
+          if (c.classKind !== 'r') {
+            return null;
+          }
+          return c;
+        }).filter(notNull)
         .map((r) => {
           return r.id;
         });
@@ -73,7 +79,7 @@ export const addForwardPolyRelationFilter = (builder: SchemaBuilder) => {
     const forwardPolyRelationSpecs: ForwardPolyRelationSpecType[]
       = (<PgPolymorphicConstraintByName>pgPolymorphicClassAndTargetModels)
         .filter(con => con.from === table.id)
-        .reduce((acc, currentPoly) => {
+        .reduce((acc: ForwardPolyRelationSpecType[], currentPoly) => {
           const cur = reFormatPolymorphicConstraint(currentPoly);
           // For each polymorphic, we collect the following, using Tag as example
           // Suppose Tag can be tagged on User, Post via taggable_id and taggable_type
@@ -82,7 +88,7 @@ export const addForwardPolyRelationFilter = (builder: SchemaBuilder) => {
           // 3. constraint name. e.g. taggable
           // 4. foreignTableAttribute e.g. 'id'
           const toReturn: ForwardPolyRelationSpecType[] = cur.to.reduce(
-            (memo, curForeignTable) => {
+            (memo: ForwardPolyRelationSpecType[], curForeignTable) => {
               const foreignTable = classById[curForeignTable];
               if (!foreignTable) return memo;
               const fieldName = inflection.forwardRelationByPolymorphic(foreignTable, cur.name);
@@ -104,7 +110,7 @@ export const addForwardPolyRelationFilter = (builder: SchemaBuilder) => {
             [],
           );
           return [...acc, ...toReturn];
-        }, [] as ForwardPolyRelationSpecType[]);
+        }, []);
 
     const forwardPolyRelationSpecByFieldName: { [x: string]: ForwardPolyRelationSpecType } = {};
 

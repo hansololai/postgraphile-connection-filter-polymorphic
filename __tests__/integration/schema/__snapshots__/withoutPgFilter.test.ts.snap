@@ -1,3 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`prints a schema with the filter plugin 1`] = `"Plugin postgraphile-plugin-connection-filter-polymorphic@1.1.12 requires postgraphile-plugin-connection-filter@^1.0.0 (not found)"`;

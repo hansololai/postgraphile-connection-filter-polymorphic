@@ -10,5 +10,5 @@ test('prints a schema with the filter plugin', async () => {
       });
     }),
     // this should give error because the PgConnectionFilter plugin is not appended
-  ).rejects.toThrowErrorMatchingSnapshot();
+  ).rejects.toThrowError();
 });

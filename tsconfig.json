@@ -1,13 +1,16 @@
 {
   "compilerOptions": {
     "allowSyntheticDefaultImports": true,
-    "lib": ["es2017", "dom"],
+    "lib": [
+      "es2017",
+      "dom"
+    ],
     "sourceMap": true,
     "experimentalDecorators": true,
     "strict": true,
     // "noUnusedLocals": true,
     // "strictNullChecks": true,
-    "noImplicitAny": false,
+    "noImplicitAny": true,
     "module": "commonjs",
     "target": "es6",
     "outDir": "dist",
@@ -19,8 +22,13 @@
       }
     ]
   },
-  "include": ["src/**/*.ts", "*.ts"],
-  "exclude": ["node_modules"],
+  "include": [
+    "src/**/*.ts",
+    "*.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ],
   "rules": {
     "max-line-length": [
       true,

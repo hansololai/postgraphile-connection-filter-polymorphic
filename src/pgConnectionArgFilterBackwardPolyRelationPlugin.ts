@@ -1,8 +1,9 @@
-import { SchemaBuilder, Options } from 'postgraphile';
+import { SchemaBuilder, Options, Build } from 'postgraphile';
 import {
   PgPolymorphicConstraintByName, PgPolymorphicConstraint,
 } from './pgDefinePolymorphicCustomPlugin';
-import { GraphilePgClass, GraphilePgAttribute } from './postgraphile_types';
+import { GraphilePgClass, GraphilePgAttribute, GraphileBuild } from './postgraphile_types';
+import { GraphQLObjectType } from 'graphql';
 export interface BackwardPolyRelationSpecType {
   table: GraphilePgClass;
   foreignTable: GraphilePgClass;
@@ -11,6 +12,8 @@ export interface BackwardPolyRelationSpecType {
   constraint: PgPolymorphicConstraint;
   isOneToMany: boolean;
 }
+
+type ResolveField = ({ sourceAlias });
 
 const getSqlSelectWhereKeysMatch = ({ sourceAlias,
   foreignTableAlias, foreignTable, table, constraint, tablePrimaryKey, sql, inflection,
@@ -35,8 +38,10 @@ const getSqlSelectWhereKeysMatch = ({ sourceAlias,
   return sqlSelectWhereKeysMatch;
 };
 export const addField = (
-  fieldName, description, type, resolve, spec, hint, build, fields,
-  relationSpecByFieldName, context,
+  fieldName: string, description: string, type: GraphQLObjectType, resolve: any,
+  spec: BackwardPolyRelationSpecType, hint: string, build: Build,
+  fields: any, relationSpecByFieldName: { [x: string]: BackwardPolyRelationSpecType },
+  context: any,
 ) => {
   const { extend, connectionFilterRegisterResolver } = build;
   const { fieldWithHooks, Self } = context;
@@ -67,11 +72,11 @@ export const addBackwardPolyRelationFilter = (builder: SchemaBuilder, option: Op
   // First add an inflector for polymorphic backrelation type name
   builder.hook('inflection', inflection => ({
     ...inflection,
-    filterManyPolyType(table, foreignTable) {
+    filterManyPolyType(table: GraphilePgClass, foreignTable: GraphilePgClass) {
       return `${this.filterManyType(table, foreignTable)}Poly`;
     },
     backwardRelationByPolymorphic(
-      table,
+      table: GraphilePgClass,
       polyConstraint: PgPolymorphicConstraint,
       isUnique: boolean) {
       const { backwardAssociationName } = polyConstraint;
@@ -99,7 +104,7 @@ export const addBackwardPolyRelationFilter = (builder: SchemaBuilder, option: Op
       connectionFilterType,
       mapFieldToPgTable,
       pgPolymorphicClassAndTargetModels = [],
-    } = build;
+    } = build as GraphileBuild;
     const {
       fieldWithHooks,
       scope: { pgIntrospection: table, isPgConnectionFilter },
@@ -140,6 +145,9 @@ export const addBackwardPolyRelationFilter = (builder: SchemaBuilder, option: Op
         const primaryConstraint = introspectionResultsByKind.constraint.find(
           attr => attr.classId === table.id && attr.type === 'p',
         );
+        if (!primaryConstraint) {
+          return memo;
+        }
         const sourceTableId = `${currentPoly.name}_id`;
         const sourceTableType = `${currentPoly.name}_type`;
         const isForeignKeyUnique = introspectionResultsByKind.constraint.find((c) => {
@@ -263,7 +271,6 @@ export const addBackwardPolyRelationFilter = (builder: SchemaBuilder, option: Op
         );
       }
     }
-
     function resolveSingle({ sourceAlias, fieldName, fieldValue, queryBuilder }) {
       if (fieldValue == null) return null;
 
@@ -295,7 +302,7 @@ export const addBackwardPolyRelationFilter = (builder: SchemaBuilder, option: Op
         : sql.query`exists(${sqlSelectWhereKeysMatch} and (${sqlFragment}))`;
     }
 
-    function makeResolveMany(backwardRelationSpec) {
+    function makeResolveMany(backwardRelationSpec: BackwardPolyRelationSpecType) {
       return function resolveMany({ sourceAlias, fieldName, fieldValue, queryBuilder }) {
         if (fieldValue == null) return null;
 

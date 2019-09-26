@@ -49,7 +49,12 @@
     },
     "collectCoverageFrom": [
       "src/**/*.ts"
-    ]
+    ],
+    "globals": {
+      "ts-jest": {
+        "tsConfigFile": "tsconfig.test.json"
+      }
+    }
   },
   "files": [
     "src",

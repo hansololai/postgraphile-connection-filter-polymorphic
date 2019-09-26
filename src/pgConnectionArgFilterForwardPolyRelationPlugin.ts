@@ -1,13 +1,19 @@
-import { SchemaBuilder, Options } from 'postgraphile';
+import { SchemaBuilder } from 'postgraphile';
 import { PgPolymorphicConstraintByName, PgPolymorphicConstraint } from './pgDefinePolymorphicCustomPlugin';
-import { addField } from './pgConnectionArgFilterBackwardPolyRelationPlugin';
+import { addField, ResolveFieldFunc } from './pgConnectionArgFilterBackwardPolyRelationPlugin';
+import { GraphilePgClass, GraphilePgAttribute, GraphileBuild } from './postgraphile_types';
 
 export interface ForwardPolyRelationSpecType {
-  table: any;
-  foreignTable: any;
+  table: GraphilePgClass;
+  foreignTable: GraphilePgClass;
   fieldName: string;
-  foreignPrimaryKey: any;
+  foreignPrimaryKey: GraphilePgAttribute;
   constraint: PgPolymorphicConstraint;
+}
+
+function notNull<T>(v: T | null): v is T {
+  if (!!v) return true;
+  return false;
 }
 export const addForwardPolyRelationFilter = (builder: SchemaBuilder) => {
   // builder.hook('inflection', (inflection) => ({
@@ -20,21 +26,18 @@ export const addForwardPolyRelationFilter = (builder: SchemaBuilder) => {
   builder.hook('GraphQLInputObjectType:fields', (fields, build, context) => {
     const {
       describePgEntity,
-      extend,
       newWithHooks,
       inflection,
       pgSql: sql,
       pgIntrospectionResultsByKind: introspectionResultsByKind,
       pgIntrospectionResultsByKind: { classById },
       connectionFilterResolve,
-      connectionFilterRegisterResolver,
       connectionFilterTypesByTypeName,
       connectionFilterType,
       mapFieldToPgTable,
       pgPolymorphicClassAndTargetModels = [],
-    } = build;
+    } = build as GraphileBuild;
     const {
-      fieldWithHooks,
       scope: { pgIntrospection: table, isPgConnectionFilter },
       Self,
     } = context;
@@ -55,11 +58,12 @@ export const addForwardPolyRelationFilter = (builder: SchemaBuilder) => {
           if (!t) {
             return null;
           }
-          return classById[t.id];
-        })
-        .filter((c) => {
-          return c && c.classKind === 'r';
-        })
+          const c = classById[t.id];
+          if (c.classKind !== 'r') {
+            return null;
+          }
+          return c;
+        }).filter(notNull)
         .map((r) => {
           return r.id;
         });
@@ -72,7 +76,7 @@ export const addForwardPolyRelationFilter = (builder: SchemaBuilder) => {
     const forwardPolyRelationSpecs: ForwardPolyRelationSpecType[]
       = (<PgPolymorphicConstraintByName>pgPolymorphicClassAndTargetModels)
         .filter(con => con.from === table.id)
-        .reduce((acc, currentPoly) => {
+        .reduce((acc: ForwardPolyRelationSpecType[], currentPoly) => {
           const cur = reFormatPolymorphicConstraint(currentPoly);
           // For each polymorphic, we collect the following, using Tag as example
           // Suppose Tag can be tagged on User, Post via taggable_id and taggable_type
@@ -81,7 +85,7 @@ export const addForwardPolyRelationFilter = (builder: SchemaBuilder) => {
           // 3. constraint name. e.g. taggable
           // 4. foreignTableAttribute e.g. 'id'
           const toReturn: ForwardPolyRelationSpecType[] = cur.to.reduce(
-            (memo, curForeignTable) => {
+            (memo: ForwardPolyRelationSpecType[], curForeignTable) => {
               const foreignTable = classById[curForeignTable];
               if (!foreignTable) return memo;
               const fieldName = inflection.forwardRelationByPolymorphic(foreignTable, cur.name);
@@ -103,10 +107,56 @@ export const addForwardPolyRelationFilter = (builder: SchemaBuilder) => {
             [],
           );
           return [...acc, ...toReturn];
-        }, [] as ForwardPolyRelationSpecType[]);
+        }, []);
 
     const forwardPolyRelationSpecByFieldName: { [x: string]: ForwardPolyRelationSpecType } = {};
+    const resolve: ResolveFieldFunc = ({
+      sourceAlias,
+      fieldName,
+      fieldValue,
+      queryBuilder,
+    }) => {
+      if (fieldValue == null) return null;
 
+      const {
+        foreignTable,
+        foreignPrimaryKey,
+        constraint,
+      } = forwardPolyRelationSpecByFieldName[fieldName];
+
+      const foreignTableTypeName = inflection.tableType(foreignTable);
+      const foreignTableAlias = sql.identifier(Symbol());
+      const sourceTableId = `${constraint.name}_id`;
+      const sourceTableType = `${constraint.name}_type`;
+
+      const sqlIdentifier = sql.identifier(foreignTable.namespace.name, foreignTable.name);
+      // sql match query
+      // sql string "(table_alias).xxx_type = 'User' and (table alias).xxx_id = (users alias).id"
+      const sqlKeysMatch = sql.query`(${sql.fragment`${sourceAlias}.${sql.identifier(
+        sourceTableId,
+      )} = ${foreignTableAlias}.${sql.identifier(foreignPrimaryKey.name)}`}) and (
+        ${sql.fragment`${sourceAlias}.${sql.identifier(sourceTableType)} = ${sql.value(
+          foreignTableTypeName,
+        )}`})`;
+
+      const foreignTableFilterTypeName = inflection.filterType(foreignTableTypeName);
+
+      const sqlFragment = connectionFilterResolve(
+        fieldValue,
+        foreignTableAlias,
+        foreignTableFilterTypeName,
+        queryBuilder,
+      );
+
+      return sqlFragment == null
+        ? null
+        : sql.query`\
+      exists(
+        select 1 from ${sqlIdentifier} as ${foreignTableAlias}
+        where ${sqlKeysMatch} and
+          (${sqlFragment})
+      )`;
+    };
     for (const spec of forwardPolyRelationSpecs) {
       const { foreignTable, fieldName } = spec;
 
@@ -134,49 +184,6 @@ export const addForwardPolyRelationFilter = (builder: SchemaBuilder) => {
         forwardPolyRelationSpecByFieldName,
         context,
       );
-    }
-
-    function resolve({ sourceAlias, fieldName, fieldValue, queryBuilder }) {
-      if (fieldValue == null) return null;
-
-      const {
-        foreignTable,
-        foreignPrimaryKey,
-        constraint,
-      } = forwardPolyRelationSpecByFieldName[fieldName];
-
-      const foreignTableTypeName = inflection.tableType(foreignTable);
-      const foreignTableAlias = sql.identifier(Symbol());
-      const sourceTableId = `${constraint.name}_id`;
-      const sourceTableType = `${constraint.name}_type`;
-
-      const sqlIdentifier = sql.identifier(foreignTable.namespace.name, foreignTable.name);
-      // sql match query
-      // sql string "(table_alias).xxx_type = 'User' and (table alias).xxx_id = (users alias).id"
-      const sqlKeysMatch = sql.query`(${sql.fragment`${sourceAlias}.${sql.identifier(
-        sourceTableId,
-      )} = ${foreignTableAlias}.${sql.identifier(foreignPrimaryKey.name)}`}) and (
-        ${sql.fragment`${sourceAlias}.${sql.identifier(
-        sourceTableType,
-      )} = ${sql.value(foreignTableTypeName)}`})`;
-
-      const foreignTableFilterTypeName = inflection.filterType(foreignTableTypeName);
-
-      const sqlFragment = connectionFilterResolve(
-        fieldValue,
-        foreignTableAlias,
-        foreignTableFilterTypeName,
-        queryBuilder,
-      );
-
-      return sqlFragment == null
-        ? null
-        : sql.query`\
-      exists(
-        select 1 from ${sqlIdentifier} as ${foreignTableAlias}
-        where ${sqlKeysMatch} and
-          (${sqlFragment})
-      )`;
     }
 
     return newFields;

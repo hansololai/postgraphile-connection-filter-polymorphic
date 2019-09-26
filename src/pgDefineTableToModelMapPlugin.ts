@@ -1,18 +1,16 @@
 import { SchemaBuilder, Options } from 'postgraphile';
+import { GraphilePgAttribute, GraphileBuild, GraphilePgProcedure } from './postgraphile_types';
 interface SimplePgTableIntrospect {
   name: string;
   id: string;
   attributesMap: AttributesMap;
 }
 interface AttributesMap {
-  [x: string]: PgAttribute;
+  [x: string]: GraphilePgAttribute | GraphilePgProcedure;
 }
 export type FieldToDBMap = {
   [x: string]: SimplePgTableIntrospect;
 };
-interface PgAttribute {
-  name: any;
-}
 
 export const addModelTableMappingPlugin = (builder: SchemaBuilder, options: Options) => {
   const { pgSchemas = [] } = options as any;
@@ -20,9 +18,9 @@ export const addModelTableMappingPlugin = (builder: SchemaBuilder, options: Opti
     const {
       pgIntrospectionResultsByKind: { procedure, class: pgClasses },
       inflection: { upperCamelCase, singularize, camelCase },
-    } = build;
+    } = build as GraphileBuild;
 
-    const fieldToDBMap: FieldToDBMap = pgClasses.reduce((acc, cur) => {
+    const fieldToDBMap: FieldToDBMap = pgClasses.reduce((acc: FieldToDBMap, cur) => {
       // Only build the map for the included schema.
       // Also this mapping behave unexpectedly if there are tables with same name in different
       // Schema used in the postgraphile
@@ -34,9 +32,9 @@ export const addModelTableMappingPlugin = (builder: SchemaBuilder, options: Opti
         // skipt it
         return acc;
       }
-      const procedureAttriutesMap: AttributesMap = procedure
+      const procedureAttriutesMap = procedure
         .filter(p => p.name.startsWith(`${cur.name}_`))
-        .reduce((a, c) => {
+        .reduce((a: AttributesMap, c) => {
           // Should probably use inflection
           const k = singularize(camelCase(c.name.replace(`${cur.name}_`, '')));
           a[k] = c;
@@ -46,7 +44,7 @@ export const addModelTableMappingPlugin = (builder: SchemaBuilder, options: Opti
       const curTable: SimplePgTableIntrospect = {
         name: cur.name,
         id: cur.id,
-        attributesMap: cur.attributes.reduce((allAtt: AttributesMap, curA: PgAttribute) => {
+        attributesMap: cur.attributes.reduce((allAtt: AttributesMap, curA) => {
           allAtt[singularize(camelCase(curA.name))] = curA;
           return allAtt;
         }, procedureAttriutesMap),

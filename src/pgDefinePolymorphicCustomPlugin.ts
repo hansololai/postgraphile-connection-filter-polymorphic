@@ -1,4 +1,5 @@
 import { SchemaBuilder, Options } from 'postgraphile';
+import { GraphileBuild, GraphilePgClass } from './postgraphile_types';
 export interface PgPolymorphicConstraint {
   name: string;
   from: string; // classId
@@ -24,21 +25,20 @@ export const definePolymorphicCustom = (builder: SchemaBuilder, options: Options
   // First add an inflector for polymorphic backrelation type name
   builder.hook('inflection', inflection => ({
     ...inflection,
-    forwardRelationByPolymorphic(table, polymorphicName: string) {
+    forwardRelationByPolymorphic(table: GraphilePgClass, polymorphicName: string) {
       return this.camelCase(`${this.singularize(table.name)}-as-${polymorphicName}`);
     },
   }));
   builder.hook('build', (build) => {
     const {
-      pgSql: sql,
       pgIntrospectionResultsByKind: { class: pgClasses, attributeByClassIdAndNum },
       pgPolymorphicClassAndTargetModels = [],
-    } = build;
+    } = build as GraphileBuild;
 
     const { pgSchemas = [] } = options as any;
     const pgPolymorphicClassAndTargetModelsCustome: PgPolymorphicConstraintByName = pgClasses
       .filter(c => pgSchemas.includes(c.namespaceName) && c.classKind === 'r')
-      .reduce((acc, curClass) => {
+      .reduce((acc: PgPolymorphicConstraintByName, curClass) => {
         const curClassAttributes: { [x: string]: any } = attributeByClassIdAndNum[curClass.id];
         // We do it in two steps, first find all xxx_type
         const allCurrentClassAttributes = Object.values(curClassAttributes);
@@ -47,11 +47,14 @@ export const definePolymorphicCustom = (builder: SchemaBuilder, options: Options
           return attribute.name.endsWith('_type') && !!attribute.tags.isPolymorphic;
         });
         const polyConstraintsOfClass = typeAttributes.map((attribute) => {
-          const { name, tags: { polymorphicTo = [], isPolymorphic } } = attribute;
+          const {
+            name,
+            tags: { polymorphicTo = [], isPolymorphic },
+          } = attribute;
           let targetTables: string[] = [];
           if (!Array.isArray(polymorphicTo)) {
             targetTables = [polymorphicTo];
-          }else {
+          } else {
             targetTables = polymorphicTo;
           }
           targetTables = Array.from(new Set<string>(targetTables));

@@ -27,7 +27,7 @@ export const PostGraphileConnectionFilterPolyPlugin = (
         })`,
       );
     }
-    const depends = (name, range) => {
+    const depends = (name: string, range: string) => {
       if (!build.hasVersion(name, range)) {
         throw new Error(
           `Plugin ${pkg.name}@${pkg.version} requires ${name}@${range} (${

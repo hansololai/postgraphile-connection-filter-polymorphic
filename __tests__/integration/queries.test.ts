@@ -6,7 +6,7 @@ import { resolve as resolvePath } from 'path';
 import PgConnectionFilterPlugin from 'postgraphile-plugin-connection-filter';
 import { PostGraphileConnectionFilterPolyPlugin } from '../../src';
 import { printSchema } from 'graphql/utilities';
-import debug from 'debug';
+// import debug from 'debug';
 
 // const debug = debugger('graphile-build:schema');
 
@@ -27,7 +27,7 @@ const kitchenSinkData = () => readFile(`${__dirname}/../p-data.sql`, 'utf8');
 
 beforeAll(() => {
   // Get a few GraphQL schema instance that we can query.
-  const gqlSchemasPromise = withPgClient(async pgClient => {
+  const gqlSchemasPromise = withPgClient(async (pgClient) => {
     // Different fixtures need different schemas with different configurations.
     // Make all of the different schemas with different configurations that we
     // need and wait for them to be created in parallel.
@@ -63,13 +63,13 @@ beforeAll(() => {
     // before we can do anything else!
     const gqlSchemas = await gqlSchemasPromise;
     // Get a new Postgres client instance.
-    return await withPgClient(async pgClient => {
+    return await withPgClient(async (pgClient) => {
       // Add data to the client instance we are using.
 
       await pgClient.query(await kitchenSinkData());
       // Run all of our queries in parallel.
       return await Promise.all(
-        queryFileNames.map(async fileName => {
+        queryFileNames.map(async (fileName) => {
           // Read the query from the file system.
           const query = await readFile(
             resolvePath(queriesDir, fileName),
@@ -96,7 +96,7 @@ beforeAll(() => {
   });
 });
 
-for (let i = 0; i < queryFileNames.length; i++) {
+for (let i = 0; i < queryFileNames.length; i += 1) {
   test(queryFileNames[i], async () => {
     expect(await queryResults[i]).toMatchSnapshot();
   });

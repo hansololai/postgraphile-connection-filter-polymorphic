@@ -1,5 +1,5 @@
 import { SchemaBuilder } from 'postgraphile';
-import { PgPolymorphicConstraintByName, PgPolymorphicConstraint } from './pgDefinePolymorphicCustomPlugin';
+import { PgPolymorphicConstraints, PgPolymorphicConstraint } from './pgDefinePolymorphicCustomPlugin';
 import { addField, ResolveFieldFunc } from './pgConnectionArgFilterBackwardPolyRelationPlugin';
 import { GraphilePgClass, GraphilePgAttribute, GraphileBuild } from './postgraphile_types';
 
@@ -74,7 +74,7 @@ export const addForwardPolyRelationFilter = (builder: SchemaBuilder) => {
 
     // Iterate the pgPolymorphic constraints and find the ones that are relavent to this table
     const forwardPolyRelationSpecs: ForwardPolyRelationSpecType[]
-      = (<PgPolymorphicConstraintByName>pgPolymorphicClassAndTargetModels)
+      = (<PgPolymorphicConstraints>pgPolymorphicClassAndTargetModels)
         .filter(con => con.from === table.id)
         .reduce((acc: ForwardPolyRelationSpecType[], currentPoly) => {
           const cur = reFormatPolymorphicConstraint(currentPoly);

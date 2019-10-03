@@ -6,7 +6,7 @@ export interface PgPolymorphicConstraint {
   backwardAssociationName?: string; // field name for backward association. (default table name)
   to: string[]; // due to limitation at the time, it is the ModelName array.
 }
-export type PgPolymorphicConstraintByName = PgPolymorphicConstraint[];
+export type PgPolymorphicConstraints = PgPolymorphicConstraint[];
 
 /**
  * @description This plugin add an array named 'pgPolymorphicClassAndTargetModels' in build,
@@ -36,9 +36,9 @@ export const definePolymorphicCustom = (builder: SchemaBuilder, options: Options
     } = build as GraphileBuild;
 
     const { pgSchemas = [] } = options as any;
-    const pgPolymorphicClassAndTargetModelsCustome: PgPolymorphicConstraintByName = pgClasses
+    const pgPolymorphicClassAndTargetModelsCustome: PgPolymorphicConstraints = pgClasses
       .filter(c => pgSchemas.includes(c.namespaceName) && c.classKind === 'r')
-      .reduce((acc: PgPolymorphicConstraintByName, curClass) => {
+      .reduce((acc: PgPolymorphicConstraints, curClass) => {
         const curClassAttributes: { [x: string]: any } = attributeByClassIdAndNum[curClass.id];
         // We do it in two steps, first find all xxx_type
         const allCurrentClassAttributes = Object.values(curClassAttributes);

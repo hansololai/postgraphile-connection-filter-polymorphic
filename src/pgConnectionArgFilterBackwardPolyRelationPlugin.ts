@@ -1,6 +1,6 @@
 import { SchemaBuilder, Options, Build, Inflection } from 'postgraphile';
 import {
-  PgPolymorphicConstraintByName,
+  PgPolymorphicConstraints,
   PgPolymorphicConstraint,
 } from './pgDefinePolymorphicCustomPlugin';
 import { GraphilePgClass, GraphilePgAttribute, GraphileBuild } from './postgraphile_types';
@@ -154,7 +154,7 @@ export const addBackwardPolyRelationFilter = (builder: SchemaBuilder, option: Op
 
     const modelName = inflection.tableType(table);
 
-    const backwardRelationSpecs = (<PgPolymorphicConstraintByName>pgPolymorphicClassAndTargetModels)
+    const backwardRelationSpecs = (<PgPolymorphicConstraints>pgPolymorphicClassAndTargetModels)
       .filter(con => con.to.includes(modelName))
       // .filter((con) => con.type === 'f')
       // .filter((con) => con.foreignClassId === table.id)

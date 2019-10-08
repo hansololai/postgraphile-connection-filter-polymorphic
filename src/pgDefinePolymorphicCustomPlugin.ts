@@ -37,7 +37,7 @@ export const definePolymorphicCustom = (builder: SchemaBuilder, options: Options
 
     const { pgSchemas = [] } = options as any;
     const pgPolymorphicClassAndTargetModelsCustome: PgPolymorphicConstraints = pgClasses
-      .filter(c => pgSchemas.includes(c.namespaceName) && c.classKind === 'r')
+      .filter(c => pgSchemas.includes(c.namespaceName) && ['r', 'v'].includes(c.classKind))
       .reduce((acc: PgPolymorphicConstraints, curClass) => {
         const curClassAttributes: { [x: string]: any } = attributeByClassIdAndNum[curClass.id];
         // We do it in two steps, first find all xxx_type

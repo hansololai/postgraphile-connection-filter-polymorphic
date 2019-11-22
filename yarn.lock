@@ -145,6 +145,11 @@
   version "4.4.1-alpha.2"
   resolved "https://registry.yarnpkg.com/@graphile/lru/-/lru-4.4.1-alpha.2.tgz#4b5fc0c1203bb45da45fc65e62d2210c30643c2b"
 
+"@graphile/lru@4.5.0":
+  version "4.5.0"
+  resolved "https://registry.yarnpkg.com/@graphile/lru/-/lru-4.5.0.tgz#e8fe036d322dfe1715675aab171979981e28ac9e"
+  integrity sha512-OoIgewLowjegJzz3tpcRE5LpQKqsap1ETFaZtC1r9p36h5ieUJnWTxCTpB7XIsU9muMTt7MMt8x0E5apS47QIQ==
+
 "@jest/console@^24.7.1", "@jest/console@^24.9.0":
   version "24.9.0"
   resolved "https://registry.yarnpkg.com/@jest/console/-/console-24.9.0.tgz#79b1bc06fb74a8cfb01cbdedf945584b1b9707f0"
@@ -1369,6 +1374,22 @@ graphile-build-pg@4.4.4:
     pg-sql2 "4.4.3"
     postgres-interval "^1.2.0"
 
+graphile-build-pg@4.5.0:
+  version "4.5.0"
+  resolved "https://registry.yarnpkg.com/graphile-build-pg/-/graphile-build-pg-4.5.0.tgz#de3cbc7fff3ed692ffae1f8b531d11a9999ef09c"
+  integrity sha512-zXLLk2PIKi2ehtyGzuGQTMMHk+WDOXw5Bo6Bi3BHbK+t2VAsIauliJA7nNgZ/5Ms2P0aE/FixxIBHxYAC5PS4Q==
+  dependencies:
+    "@graphile/lru" "4.5.0"
+    chalk "^2.4.2"
+    debug "^4.1.1"
+    graphile-build "4.5.0"
+    graphql-iso-date "^3.6.0"
+    jsonwebtoken "^8.5.1"
+    lodash ">=4 <5"
+    lru-cache ">=4 <5"
+    pg-sql2 "4.5.0"
+    postgres-interval "^1.2.0"
+
 graphile-build@4.4.4:
   version "4.4.4"
   resolved "https://registry.yarnpkg.com/graphile-build/-/graphile-build-4.4.4.tgz#f53ecfbb4537bee76ff6631d3fc1da1779948144"
@@ -1378,6 +1399,21 @@ graphile-build@4.4.4:
     chalk "^2.4.2"
     debug "^4.1.1"
     graphql-parse-resolve-info "4.4.3"
+    iterall "^1.2.2"
+    lodash ">=4 <5"
+    lru-cache "^5.0.0"
+    pluralize "^7.0.0"
+    semver "^6.0.0"
+
+graphile-build@4.5.0:
+  version "4.5.0"
+  resolved "https://registry.yarnpkg.com/graphile-build/-/graphile-build-4.5.0.tgz#f7c627c146e051f454c4f19116231e9d8b653e04"
+  integrity sha512-U/1K4nHWp3MGJ7kwTwIYBZnO3ZDlufmHHpdd1t4uFA46OtxdP7RG7KnXyol/XB8hfTfqSVGabaZP8lr+NVyQPA==
+  dependencies:
+    "@graphile/lru" "4.5.0"
+    chalk "^2.4.2"
+    debug "^4.1.1"
+    graphql-parse-resolve-info "4.5.0"
     iterall "^1.2.2"
     lodash ">=4 <5"
     lru-cache "^5.0.0"
@@ -1400,6 +1436,13 @@ graphql-parse-resolve-info@4.4.3:
   resolved "https://registry.yarnpkg.com/graphql-parse-resolve-info/-/graphql-parse-resolve-info-4.4.3.tgz#3e8eda5ece51d07464249f2558a3d397f150bb9a"
   dependencies:
     "@types/graphql" "^14.2.0"
+    debug "^4.1.1"
+
+graphql-parse-resolve-info@4.5.0:
+  version "4.5.0"
+  resolved "https://registry.yarnpkg.com/graphql-parse-resolve-info/-/graphql-parse-resolve-info-4.5.0.tgz#cb9bf800c9ce81eebecd86ec62182a7b645d1fad"
+  integrity sha512-51eKipZcj9AQWKLtstAmqys3GmOHUoUwFN/ALe1s4k2his0sP4ASri/ZdqcweLRnno4cDPqp2dcWnJ/Pe2a2rQ==
+  dependencies:
     debug "^4.1.1"
 
 graphql@*, "graphql@>=0.9 <0.14 || ^14.0.2", "graphql@^0.6.0 || ^0.7.0 || ^0.8.0-b || ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.2":
@@ -2757,6 +2800,15 @@ pg-sql2@4.4.3, pg-sql2@^4.4.1-alpha.2:
     "@types/pg" ">=6 <8"
     debug ">=3 <5"
 
+pg-sql2@4.5.0:
+  version "4.5.0"
+  resolved "https://registry.yarnpkg.com/pg-sql2/-/pg-sql2-4.5.0.tgz#d1f5f039c5717f8266e340508b1e29e760f5e2ce"
+  integrity sha512-kmqhJgKbOWsVzKjhzsfglZagyrV5fXkrHeY33WdeSsxhegZI1Evpa/lQzG1uQj2ZfLPIePV7RyoaZH8eVHRd3A==
+  dependencies:
+    "@graphile/lru" "4.5.0"
+    "@types/pg" ">=6 <8"
+    debug ">=3 <5"
+
 pg-types@^2.1.0:
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/pg-types/-/pg-types-2.2.0.tgz#2d0250d636454f7cfa3b6ae0382fdfa8063254a3"
@@ -2824,6 +2876,14 @@ postgraphile-core@4.4.4:
     "@types/graphql" "^14.2.0"
     graphile-build "4.4.4"
     graphile-build-pg "4.4.4"
+
+postgraphile-core@4.5.0:
+  version "4.5.0"
+  resolved "https://registry.yarnpkg.com/postgraphile-core/-/postgraphile-core-4.5.0.tgz#b25fa6d9f523669018ad81ab52f0005fdd72556d"
+  integrity sha512-1UE8XmYi2DO1yon1/3x/CJqZdQuFwvPDJ6t81pf2o/DPJJMRJpoNOhtG/KLxNA2NqYbXBEK+H0HGxJiAiFUkQg==
+  dependencies:
+    graphile-build "4.5.0"
+    graphile-build-pg "4.5.0"
 
 postgraphile-plugin-connection-filter@^1.0.0:
   version "1.1.3"

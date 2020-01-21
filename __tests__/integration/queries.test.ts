@@ -1,6 +1,6 @@
 import { graphql } from 'graphql';
 import { withPgClient } from '../helpers';
-import { createPostGraphileSchema } from 'postgraphile-core';
+import { createPostGraphileSchema } from 'postgraphile';
 import { readdirSync, readFile as rawReadFile } from 'fs';
 import { resolve as resolvePath } from 'path';
 import PgConnectionFilterPlugin from 'postgraphile-plugin-connection-filter';

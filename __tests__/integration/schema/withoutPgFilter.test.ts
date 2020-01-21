@@ -1,6 +1,6 @@
 import { PostGraphileConnectionFilterPolyPlugin } from '../../../src/';
 import { withPgClient } from '../../helpers';
-import { createPostGraphileSchema } from 'postgraphile-core';
+import { createPostGraphileSchema } from 'postgraphile';
 test('prints a schema with the filter plugin', async () => {
   await expect(
     withPgClient(async (client) => {

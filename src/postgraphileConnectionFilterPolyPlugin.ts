@@ -2,8 +2,9 @@ import { addBackwardPolyRelationFilter } from './pgConnectionArgFilterBackwardPo
 import { addForwardPolyRelationFilter } from './pgConnectionArgFilterForwardPolyRelationPlugin';
 import { definePolymorphicCustom } from './pgDefinePolymorphicCustomPlugin';
 import { addModelTableMappingPlugin } from './pgDefineTableToModelMapPlugin';
-import { makePluginByCombiningPlugins } from 'graphile-utils';
-import { SchemaBuilder, Options } from 'postgraphile';
+import {
+  SchemaBuilder, Options, makePluginByCombiningPlugins,
+} from 'postgraphile';
 const PostGraphileConnectionFilterPolyCorePlugin = makePluginByCombiningPlugins(
   addModelTableMappingPlugin,
   definePolymorphicCustom,

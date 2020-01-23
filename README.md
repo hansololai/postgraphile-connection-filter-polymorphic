@@ -4,6 +4,7 @@
 <a href="https://codeclimate.com/github/hansololai/postgraphile-connection-filter-polymorphic/maintainability"><img src="https://api.codeclimate.com/v1/badges/ae63e589ca374f8653b1/maintainability" /></a>
 <a href="https://codeclimate.com/github/hansololai/postgraphile-connection-filter-polymorphic/test_coverage"><img src="https://api.codeclimate.com/v1/badges/ae63e589ca374f8653b1/test_coverage" /></a>
 [![Known Vulnerabilities](https://snyk.io//test/github/hansololai/postgraphile-connection-filter-polymorphic/badge.svg?targetFile=package.json)](https://snyk.io//test/github/hansololai/postgraphile-connection-filter-polymorphic?targetFile=package.json)
+[![npm version](https://img.shields.io/npm/v/postgraphile-plugin-connection-filter-polymorphic)](https://www.npmjs.com/package/postgraphile-plugin-connection-filter-polymorphic)
 
 
 # PostGraphile Connection Plugin Polymorphic 
@@ -56,7 +57,7 @@ This plugin will create the forward relationship. (this `userAsTaggable`) field,
 
 ### Install
 ```
-yarn add postgraphile-connection-filter-polymorphic
+yarn add postgraphile-plugin-connection-filter-polymorphic
 ```
 
 ### How to use

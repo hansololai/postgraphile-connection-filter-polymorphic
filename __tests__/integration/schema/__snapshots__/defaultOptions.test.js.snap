@@ -40,6 +40,105 @@ exports[`prints a schema with the filter plugin 1`] = `
   xmlArray: [String]
 }
 
+\\"\\"\\"
+A condition to be used against \`ArrayType\` object types. All fields are tested
+for equality and combined with a logical ‘and.’
+\\"\\"\\"
+input ArrayTypeCondition {
+  \\"\\"\\"Checks for equality with the object’s \`bit4Array\` field.\\"\\"\\"
+  bit4Array: [BitString]
+
+  \\"\\"\\"Checks for equality with the object’s \`boolArray\` field.\\"\\"\\"
+  boolArray: [Boolean]
+
+  \\"\\"\\"Checks for equality with the object’s \`bpchar4Array\` field.\\"\\"\\"
+  bpchar4Array: [String]
+
+  \\"\\"\\"Checks for equality with the object’s \`byteaArray\` field.\\"\\"\\"
+  byteaArray: [String]
+
+  \\"\\"\\"Checks for equality with the object’s \`char4Array\` field.\\"\\"\\"
+  char4Array: [String]
+
+  \\"\\"\\"Checks for equality with the object’s \`cidrArray\` field.\\"\\"\\"
+  cidrArray: [String]
+
+  \\"\\"\\"Checks for equality with the object’s \`citextArray\` field.\\"\\"\\"
+  citextArray: [String]
+
+  \\"\\"\\"Checks for equality with the object’s \`dateArray\` field.\\"\\"\\"
+  dateArray: [Date]
+
+  \\"\\"\\"Checks for equality with the object’s \`float4Array\` field.\\"\\"\\"
+  float4Array: [Float]
+
+  \\"\\"\\"Checks for equality with the object’s \`float8Array\` field.\\"\\"\\"
+  float8Array: [Float]
+
+  \\"\\"\\"Checks for equality with the object’s \`hstoreArray\` field.\\"\\"\\"
+  hstoreArray: [KeyValueHash]
+
+  \\"\\"\\"Checks for equality with the object’s \`id\` field.\\"\\"\\"
+  id: Int
+
+  \\"\\"\\"Checks for equality with the object’s \`inetArray\` field.\\"\\"\\"
+  inetArray: [InternetAddress]
+
+  \\"\\"\\"Checks for equality with the object’s \`int2Array\` field.\\"\\"\\"
+  int2Array: [Int]
+
+  \\"\\"\\"Checks for equality with the object’s \`int4Array\` field.\\"\\"\\"
+  int4Array: [Int]
+
+  \\"\\"\\"Checks for equality with the object’s \`int8Array\` field.\\"\\"\\"
+  int8Array: [BigInt]
+
+  \\"\\"\\"Checks for equality with the object’s \`intervalArray\` field.\\"\\"\\"
+  intervalArray: [IntervalInput]
+
+  \\"\\"\\"Checks for equality with the object’s \`jsonArray\` field.\\"\\"\\"
+  jsonArray: [JSON]
+
+  \\"\\"\\"Checks for equality with the object’s \`jsonbArray\` field.\\"\\"\\"
+  jsonbArray: [JSON]
+
+  \\"\\"\\"Checks for equality with the object’s \`macaddrArray\` field.\\"\\"\\"
+  macaddrArray: [String]
+
+  \\"\\"\\"Checks for equality with the object’s \`moneyArray\` field.\\"\\"\\"
+  moneyArray: [Float]
+
+  \\"\\"\\"Checks for equality with the object’s \`numericArray\` field.\\"\\"\\"
+  numericArray: [BigFloat]
+
+  \\"\\"\\"Checks for equality with the object’s \`textArray\` field.\\"\\"\\"
+  textArray: [String]
+
+  \\"\\"\\"Checks for equality with the object’s \`timeArray\` field.\\"\\"\\"
+  timeArray: [Time]
+
+  \\"\\"\\"Checks for equality with the object’s \`timestampArray\` field.\\"\\"\\"
+  timestampArray: [Datetime]
+
+  \\"\\"\\"Checks for equality with the object’s \`timestamptzArray\` field.\\"\\"\\"
+  timestamptzArray: [Datetime]
+
+  \\"\\"\\"Checks for equality with the object’s \`timetzArray\` field.\\"\\"\\"
+  timetzArray: [Time]
+
+  \\"\\"\\"Checks for equality with the object’s \`uuidArray\` field.\\"\\"\\"
+  uuidArray: [UUID]
+
+  \\"\\"\\"Checks for equality with the object’s \`varbitArray\` field.\\"\\"\\"
+  varbitArray: [BitString]
+
+  \\"\\"\\"Checks for equality with the object’s \`varcharArray\` field.\\"\\"\\"
+  varcharArray: [String]
+
+  \\"\\"\\"Checks for equality with the object’s \`xmlArray\` field.\\"\\"\\"
+  xmlArray: [String]
+}
+
 \\"\\"\\"A connection to a list of \`ArrayType\` values.\\"\\"\\"
 type ArrayTypesConnection {
   \\"\\"\\"
@@ -164,6 +263,21 @@ type BackwardCompound implements Node {
   nodeId: ID!
 }
 
+\\"\\"\\"
+A condition to be used against \`BackwardCompound\` object types. All fields are
+tested for equality and combined with a logical ‘and.’
+\\"\\"\\"
+input BackwardCompoundCondition {
+  \\"\\"\\"Checks for equality with the object’s \`backwardCompound1\` field.\\"\\"\\"
+  backwardCompound1: Int
+
+  \\"\\"\\"Checks for equality with the object’s \`backwardCompound2\` field.\\"\\"\\"
+  backwardCompound2: Int
+
+  \\"\\"\\"Checks for equality with the object’s \`name\` field.\\"\\"\\"
+  name: String
+}
+
 \\"\\"\\"A connection to a list of \`BackwardCompound\` values.\\"\\"\\"
 type BackwardCompoundsConnection {
   \\"\\"\\"
@@ -203,6 +317,21 @@ enum BackwardCompoundsOrderBy {
   NATURAL
   PRIMARY_KEY_ASC
   PRIMARY_KEY_DESC
+}
+
+\\"\\"\\"
+A condition to be used against \`Backward\` object types. All fields are tested
+for equality and combined with a logical ‘and.’
+\\"\\"\\"
+input BackwardCondition {
+  \\"\\"\\"Checks for equality with the object’s \`filterableId\` field.\\"\\"\\"
+  filterableId: Int
+
+  \\"\\"\\"Checks for equality with the object’s \`id\` field.\\"\\"\\"
+  id: Int
+
+  \\"\\"\\"Checks for equality with the object’s \`name\` field.\\"\\"\\"
+  name: String
 }
 
 \\"\\"\\"A connection to a list of \`Backward\` values.\\"\\"\\"
@@ -270,6 +399,26 @@ type BigFloatRangeBound {
 }
 
 \\"\\"\\"
+The value at one end of a range. A range can either include this value, or not.
+\\"\\"\\"
+input BigFloatRangeBoundInput {
+  \\"\\"\\"Whether or not the value of this bound is included in the range.\\"\\"\\"
+  inclusive: Boolean!
+
+  \\"\\"\\"The value at one end of our range.\\"\\"\\"
+  value: BigFloat!
+}
+
+\\"\\"\\"A range of \`BigFloat\`.\\"\\"\\"
+input BigFloatRangeInput {
+  \\"\\"\\"The ending bound of our range.\\"\\"\\"
+  end: BigFloatRangeBoundInput
+
+  \\"\\"\\"The starting bound of our range.\\"\\"\\"
+  start: BigFloatRangeBoundInput
+}
+
+\\"\\"\\"
 A signed eight-byte integer. The upper big integer values are greater than the
 max value for a JavaScript number. Therefore all big integers will be output as
 strings and not numbers.
@@ -296,6 +445,26 @@ type BigIntRangeBound {
   value: BigInt!
 }
 
+\\"\\"\\"
+The value at one end of a range. A range can either include this value, or not.
+\\"\\"\\"
+input BigIntRangeBoundInput {
+  \\"\\"\\"Whether or not the value of this bound is included in the range.\\"\\"\\"
+  inclusive: Boolean!
+
+  \\"\\"\\"The value at one end of our range.\\"\\"\\"
+  value: BigInt!
+}
+
+\\"\\"\\"A range of \`BigInt\`.\\"\\"\\"
+input BigIntRangeInput {
+  \\"\\"\\"The ending bound of our range.\\"\\"\\"
+  end: BigIntRangeBoundInput
+
+  \\"\\"\\"The starting bound of our range.\\"\\"\\"
+  start: BigIntRangeBoundInput
+}
+
 \\"\\"\\"A string representing a series of binary bits\\"\\"\\"
 scalar BitString
 
@@ -312,6 +481,20 @@ type Child implements Node {
   A globally unique identifier. Can be used in various places throughout the system to identify this single value.
   \\"\\"\\"
   nodeId: ID!
+}
+
+\\"\\"\\"
+A condition to be used against \`Child\` object types. All fields are tested for equality and combined with a logical ‘and.’
+\\"\\"\\"
+input ChildCondition {
+  \\"\\"\\"Checks for equality with the object’s \`filterableId\` field.\\"\\"\\"
+  filterableId: Int
+
+  \\"\\"\\"Checks for equality with the object’s \`id\` field.\\"\\"\\"
+  id: Int
+
+  \\"\\"\\"Checks for equality with the object’s \`name\` field.\\"\\"\\"
+  name: String
 }
 
 \\"\\"\\"A connection to a list of \`Child\` values.\\"\\"\\"
@@ -358,6 +541,12 @@ type Composite {
   b: String
 }
 
+\\"\\"\\"An input for mutations affecting \`Composite\`\\"\\"\\"
+input CompositeInput {
+  a: Int
+  b: String
+}
+
 \\"\\"\\"A location in a connection that can be used for resuming pagination.\\"\\"\\"
 scalar Cursor
 
@@ -387,6 +576,26 @@ type DateRangeBound {
 }
 
 \\"\\"\\"
+The value at one end of a range. A range can either include this value, or not.
+\\"\\"\\"
+input DateRangeBoundInput {
+  \\"\\"\\"Whether or not the value of this bound is included in the range.\\"\\"\\"
+  inclusive: Boolean!
+
+  \\"\\"\\"The value at one end of our range.\\"\\"\\"
+  value: Date!
+}
+
+\\"\\"\\"A range of \`Date\`.\\"\\"\\"
+input DateRangeInput {
+  \\"\\"\\"The ending bound of our range.\\"\\"\\"
+  end: DateRangeBoundInput
+
+  \\"\\"\\"The starting bound of our range.\\"\\"\\"
+  start: DateRangeBoundInput
+}
+
+\\"\\"\\"
 A point in time as described by the [ISO
 8601](https://en.wikipedia.org/wiki/ISO_8601) standard. May or may not include a timezone.
 \\"\\"\\"
@@ -412,6 +621,26 @@ type DatetimeRangeBound {
   value: Datetime!
 }
 
+\\"\\"\\"
+The value at one end of a range. A range can either include this value, or not.
+\\"\\"\\"
+input DatetimeRangeBoundInput {
+  \\"\\"\\"Whether or not the value of this bound is included in the range.\\"\\"\\"
+  inclusive: Boolean!
+
+  \\"\\"\\"The value at one end of our range.\\"\\"\\"
+  value: Datetime!
+}
+
+\\"\\"\\"A range of \`Datetime\`.\\"\\"\\"
+input DatetimeRangeInput {
+  \\"\\"\\"The ending bound of our range.\\"\\"\\"
+  end: DatetimeRangeBoundInput
+
+  \\"\\"\\"The starting bound of our range.\\"\\"\\"
+  start: DatetimeRangeBoundInput
+}
+
 type DomainType implements Node {
   char4Domain: Char4Domain
   dateDomain: DateDomain
@@ -422,6 +651,24 @@ type DomainType implements Node {
   A globally unique identifier. Can be used in various places throughout the system to identify this single value.
   \\"\\"\\"
   nodeId: ID!
+}
+
+\\"\\"\\"
+A condition to be used against \`DomainType\` object types. All fields are tested
+for equality and combined with a logical ‘and.’
+\\"\\"\\"
+input DomainTypeCondition {
+  \\"\\"\\"Checks for equality with the object’s \`char4Domain\` field.\\"\\"\\"
+  char4Domain: Char4Domain
+
+  \\"\\"\\"Checks for equality with the object’s \`dateDomain\` field.\\"\\"\\"
+  dateDomain: DateDomain
+
+  \\"\\"\\"Checks for equality with the object’s \`id\` field.\\"\\"\\"
+  id: Int
+
+  \\"\\"\\"Checks for equality with the object’s \`int4Domain\` field.\\"\\"\\"
+  int4Domain: Int4Domain
 }
 
 \\"\\"\\"A connection to a list of \`DomainType\` values.\\"\\"\\"
@@ -475,6 +722,18 @@ type EnumArrayType implements Node {
   nodeId: ID!
 }
 
+\\"\\"\\"
+A condition to be used against \`EnumArrayType\` object types. All fields are
+tested for equality and combined with a logical ‘and.’
+\\"\\"\\"
+input EnumArrayTypeCondition {
+  \\"\\"\\"Checks for equality with the object’s \`enumArray\` field.\\"\\"\\"
+  enumArray: [Mood]
+
+  \\"\\"\\"Checks for equality with the object’s \`id\` field.\\"\\"\\"
+  id: Int
+}
+
 \\"\\"\\"A connection to a list of \`EnumArrayType\` values.\\"\\"\\"
 type EnumArrayTypesConnection {
   \\"\\"\\"
@@ -520,6 +779,18 @@ type EnumType implements Node {
   A globally unique identifier. Can be used in various places throughout the system to identify this single value.
   \\"\\"\\"
   nodeId: ID!
+}
+
+\\"\\"\\"
+A condition to be used against \`EnumType\` object types. All fields are tested
+for equality and combined with a logical ‘and.’
+\\"\\"\\"
+input EnumTypeCondition {
+  \\"\\"\\"Checks for equality with the object’s \`enum\` field.\\"\\"\\"
+  enum: Mood
+
+  \\"\\"\\"Checks for equality with the object’s \`id\` field.\\"\\"\\"
+  id: Int
 }
 
 \\"\\"\\"A connection to a list of \`EnumType\` values.\\"\\"\\"
@@ -582,6 +853,11 @@ type Filterable implements Node {
 
     \\"\\"\\"Read all values in the set before (above) this cursor.\\"\\"\\"
     before: Cursor
+
+    \\"\\"\\"
+    A condition to be used in determining which values should be returned by the collection.
+    \\"\\"\\"
+    condition: ChildCondition
 
     \\"\\"\\"Only read the first \`n\` values of the set.\\"\\"\\"
     first: Int
@@ -656,6 +932,11 @@ type Filterable implements Node {
     \\"\\"\\"Read all values in the set before (above) this cursor.\\"\\"\\"
     before: Cursor
 
+    \\"\\"\\"
+    A condition to be used in determining which values should be returned by the collection.
+    \\"\\"\\"
+    condition: FilterableClosureCondition
+
     \\"\\"\\"Only read the first \`n\` values of the set.\\"\\"\\"
     first: Int
 
@@ -679,6 +960,11 @@ type Filterable implements Node {
 
     \\"\\"\\"Read all values in the set before (above) this cursor.\\"\\"\\"
     before: Cursor
+
+    \\"\\"\\"
+    A condition to be used in determining which values should be returned by the collection.
+    \\"\\"\\"
+    condition: FilterableClosureCondition
 
     \\"\\"\\"Only read the first \`n\` values of the set.\\"\\"\\"
     first: Int
@@ -763,6 +1049,24 @@ type FilterableClosure implements Node {
   nodeId: ID!
 }
 
+\\"\\"\\"
+A condition to be used against \`FilterableClosure\` object types. All fields are
+tested for equality and combined with a logical ‘and.’
+\\"\\"\\"
+input FilterableClosureCondition {
+  \\"\\"\\"Checks for equality with the object’s \`ancestorId\` field.\\"\\"\\"
+  ancestorId: Int
+
+  \\"\\"\\"Checks for equality with the object’s \`depth\` field.\\"\\"\\"
+  depth: Int
+
+  \\"\\"\\"Checks for equality with the object’s \`descendantId\` field.\\"\\"\\"
+  descendantId: Int
+
+  \\"\\"\\"Checks for equality with the object’s \`id\` field.\\"\\"\\"
+  id: Int
+}
+
 \\"\\"\\"A connection to a list of \`FilterableClosure\` values.\\"\\"\\"
 type FilterableClosuresConnection {
   \\"\\"\\"
@@ -827,6 +1131,137 @@ type FilterableComputedSetofIntEdge {
 
   \\"\\"\\"The \`Int\` at the end of the edge.\\"\\"\\"
   node: Int
+}
+
+\\"\\"\\"
+A condition to be used against \`Filterable\` object types. All fields are tested
+for equality and combined with a logical ‘and.’
+\\"\\"\\"
+input FilterableCondition {
+  \\"\\"\\"Checks for equality with the object’s \`backwardCompound1\` field.\\"\\"\\"
+  backwardCompound1: Int
+
+  \\"\\"\\"Checks for equality with the object’s \`backwardCompound2\` field.\\"\\"\\"
+  backwardCompound2: Int
+
+  \\"\\"\\"Checks for equality with the object’s \`bit4\` field.\\"\\"\\"
+  bit4: BitString
+
+  \\"\\"\\"Checks for equality with the object’s \`bool\` field.\\"\\"\\"
+  bool: Boolean
+
+  \\"\\"\\"Checks for equality with the object’s \`bpchar4\` field.\\"\\"\\"
+  bpchar4: String
+
+  \\"\\"\\"Checks for equality with the object’s \`bytea\` field.\\"\\"\\"
+  bytea: String
+
+  \\"\\"\\"Checks for equality with the object’s \`char4\` field.\\"\\"\\"
+  char4: String
+
+  \\"\\"\\"Checks for equality with the object’s \`cidr\` field.\\"\\"\\"
+  cidr: String
+
+  \\"\\"\\"Checks for equality with the object’s \`citext\` field.\\"\\"\\"
+  citext: String
+
+  \\"\\"\\"Checks for equality with the object’s \`compositeColumn\` field.\\"\\"\\"
+  compositeColumn: CompositeInput
+
+  \\"\\"\\"
+  Checks for equality with the object’s \`computedTaggedFilterable\` field.
+  \\"\\"\\"
+  computedTaggedFilterable: Int
+
+  \\"\\"\\"Checks for equality with the object’s \`date\` field.\\"\\"\\"
+  date: Date
+
+  \\"\\"\\"Checks for equality with the object’s \`float4\` field.\\"\\"\\"
+  float4: Float
+
+  \\"\\"\\"Checks for equality with the object’s \`float8\` field.\\"\\"\\"
+  float8: Float
+
+  \\"\\"\\"Checks for equality with the object’s \`forwardColumn\` field.\\"\\"\\"
+  forwardColumn: ForwardInput
+
+  \\"\\"\\"Checks for equality with the object’s \`forwardCompound1\` field.\\"\\"\\"
+  forwardCompound1: Int
+
+  \\"\\"\\"Checks for equality with the object’s \`forwardCompound2\` field.\\"\\"\\"
+  forwardCompound2: Int
+
+  \\"\\"\\"Checks for equality with the object’s \`forwardId\` field.\\"\\"\\"
+  forwardId: Int
+
+  \\"\\"\\"Checks for equality with the object’s \`hstore\` field.\\"\\"\\"
+  hstore: KeyValueHash
+
+  \\"\\"\\"Checks for equality with the object’s \`id\` field.\\"\\"\\"
+  id: Int
+
+  \\"\\"\\"Checks for equality with the object’s \`inet\` field.\\"\\"\\"
+  inet: InternetAddress
+
+  \\"\\"\\"Checks for equality with the object’s \`int2\` field.\\"\\"\\"
+  int2: Int
+
+  \\"\\"\\"Checks for equality with the object’s \`int4\` field.\\"\\"\\"
+  int4: Int
+
+  \\"\\"\\"Checks for equality with the object’s \`int8\` field.\\"\\"\\"
+  int8: BigInt
+
+  \\"\\"\\"Checks for equality with the object’s \`interval\` field.\\"\\"\\"
+  interval: IntervalInput
+
+  \\"\\"\\"Checks for equality with the object’s \`json\` field.\\"\\"\\"
+  json: JSON
+
+  \\"\\"\\"Checks for equality with the object’s \`jsonb\` field.\\"\\"\\"
+  jsonb: JSON
+
+  \\"\\"\\"Checks for equality with the object’s \`macaddr\` field.\\"\\"\\"
+  macaddr: String
+
+  \\"\\"\\"Checks for equality with the object’s \`money\` field.\\"\\"\\"
+  money: Float
+
+  \\"\\"\\"Checks for equality with the object’s \`name\` field.\\"\\"\\"
+  name: String
+
+  \\"\\"\\"Checks for equality with the object’s \`numeric\` field.\\"\\"\\"
+  numeric: BigFloat
+
+  \\"\\"\\"Checks for equality with the object’s \`parentId\` field.\\"\\"\\"
+  parentId: Int
+
+  \\"\\"\\"Checks for equality with the object’s \`text\` field.\\"\\"\\"
+  text: String
+
+  \\"\\"\\"Checks for equality with the object’s \`time\` field.\\"\\"\\"
+  time: Time
+
+  \\"\\"\\"Checks for equality with the object’s \`timestamp\` field.\\"\\"\\"
+  timestamp: Datetime
+
+  \\"\\"\\"Checks for equality with the object’s \`timestamptz\` field.\\"\\"\\"
+  timestamptz: Datetime
+
+  \\"\\"\\"Checks for equality with the object’s \`timetz\` field.\\"\\"\\"
+  timetz: Time
+
+  \\"\\"\\"Checks for equality with the object’s \`uuid\` field.\\"\\"\\"
+  uuid: UUID
+
+  \\"\\"\\"Checks for equality with the object’s \`varbit\` field.\\"\\"\\"
+  varbit: BitString
+
+  \\"\\"\\"Checks for equality with the object’s \`varchar\` field.\\"\\"\\"
+  varchar: String
+
+  \\"\\"\\"Checks for equality with the object’s \`xml\` field.\\"\\"\\"
+  xml: String
 }
 
 \\"\\"\\"A connection to a list of \`Filterable\` values.\\"\\"\\"
@@ -969,6 +1404,21 @@ type ForwardCompound implements Node {
   nodeId: ID!
 }
 
+\\"\\"\\"
+A condition to be used against \`ForwardCompound\` object types. All fields are
+tested for equality and combined with a logical ‘and.’
+\\"\\"\\"
+input ForwardCompoundCondition {
+  \\"\\"\\"Checks for equality with the object’s \`forwardCompound1\` field.\\"\\"\\"
+  forwardCompound1: Int
+
+  \\"\\"\\"Checks for equality with the object’s \`forwardCompound2\` field.\\"\\"\\"
+  forwardCompound2: Int
+
+  \\"\\"\\"Checks for equality with the object’s \`name\` field.\\"\\"\\"
+  name: String
+}
+
 \\"\\"\\"A connection to a list of \`ForwardCompound\` values.\\"\\"\\"
 type ForwardCompoundsConnection {
   \\"\\"\\"
@@ -1008,6 +1458,23 @@ enum ForwardCompoundsOrderBy {
   NATURAL
   PRIMARY_KEY_ASC
   PRIMARY_KEY_DESC
+}
+
+\\"\\"\\"
+A condition to be used against \`Forward\` object types. All fields are tested for equality and combined with a logical ‘and.’
+\\"\\"\\"
+input ForwardCondition {
+  \\"\\"\\"Checks for equality with the object’s \`id\` field.\\"\\"\\"
+  id: Int
+
+  \\"\\"\\"Checks for equality with the object’s \`name\` field.\\"\\"\\"
+  name: String
+}
+
+\\"\\"\\"An input for mutations affecting \`Forward\`\\"\\"\\"
+input ForwardInput {
+  id: Int
+  name: String!
 }
 
 \\"\\"\\"A connection to a list of \`Forward\` values.\\"\\"\\"
@@ -1219,6 +1686,33 @@ type Interval {
   years: Int
 }
 
+\\"\\"\\"
+An interval of time that has passed where the smallest distinct unit is a second.
+\\"\\"\\"
+input IntervalInput {
+  \\"\\"\\"A quantity of days.\\"\\"\\"
+  days: Int
+
+  \\"\\"\\"A quantity of hours.\\"\\"\\"
+  hours: Int
+
+  \\"\\"\\"A quantity of minutes.\\"\\"\\"
+  minutes: Int
+
+  \\"\\"\\"A quantity of months.\\"\\"\\"
+  months: Int
+
+  \\"\\"\\"
+  A quantity of seconds. This is the only non-integer field, as all the other
+  fields will dump their overflow into a smaller unit of time. Intervals don’t
+  have a smaller unit than seconds.
+  \\"\\"\\"
+  seconds: Float
+
+  \\"\\"\\"A quantity of years.\\"\\"\\"
+  years: Int
+}
+
 \\"\\"\\"A range of \`Int\`.\\"\\"\\"
 type IntRange {
   \\"\\"\\"The ending bound of our range.\\"\\"\\"
@@ -1240,6 +1734,26 @@ type IntRangeBound {
 }
 
 \\"\\"\\"
+The value at one end of a range. A range can either include this value, or not.
+\\"\\"\\"
+input IntRangeBoundInput {
+  \\"\\"\\"Whether or not the value of this bound is included in the range.\\"\\"\\"
+  inclusive: Boolean!
+
+  \\"\\"\\"The value at one end of our range.\\"\\"\\"
+  value: Int!
+}
+
+\\"\\"\\"A range of \`Int\`.\\"\\"\\"
+input IntRangeInput {
+  \\"\\"\\"The ending bound of our range.\\"\\"\\"
+  end: IntRangeBoundInput
+
+  \\"\\"\\"The starting bound of our range.\\"\\"\\"
+  start: IntRangeBoundInput
+}
+
+\\"\\"\\"
 A JavaScript object encoded in the JSON format as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
 \\"\\"\\"
 scalar JSON
@@ -1253,6 +1767,21 @@ type JsonbTest implements Node {
   A globally unique identifier. Can be used in various places throughout the system to identify this single value.
   \\"\\"\\"
   nodeId: ID!
+}
+
+\\"\\"\\"
+A condition to be used against \`JsonbTest\` object types. All fields are tested
+for equality and combined with a logical ‘and.’
+\\"\\"\\"
+input JsonbTestCondition {
+  \\"\\"\\"Checks for equality with the object’s \`id\` field.\\"\\"\\"
+  id: Int
+
+  \\"\\"\\"Checks for equality with the object’s \`jsonbWithArray\` field.\\"\\"\\"
+  jsonbWithArray: JSON
+
+  \\"\\"\\"Checks for equality with the object’s \`jsonbWithObject\` field.\\"\\"\\"
+  jsonbWithObject: JSON
 }
 
 \\"\\"\\"A connection to a list of \`JsonbTest\` values.\\"\\"\\"
@@ -1307,6 +1836,18 @@ type Junction implements Node {
   \\"\\"\\"Reads a single \`SideB\` that is related to this \`Junction\`.\\"\\"\\"
   sideBBySideBId: SideB
   sideBId: Int!
+}
+
+\\"\\"\\"
+A condition to be used against \`Junction\` object types. All fields are tested
+for equality and combined with a logical ‘and.’
+\\"\\"\\"
+input JunctionCondition {
+  \\"\\"\\"Checks for equality with the object’s \`sideAId\` field.\\"\\"\\"
+  sideAId: Int
+
+  \\"\\"\\"Checks for equality with the object’s \`sideBId\` field.\\"\\"\\"
+  sideBId: Int
 }
 
 \\"\\"\\"A connection to a list of \`Junction\` values.\\"\\"\\"
@@ -1389,6 +1930,11 @@ type Parent implements Node {
     \\"\\"\\"Read all values in the set before (above) this cursor.\\"\\"\\"
     before: Cursor
 
+    \\"\\"\\"
+    A condition to be used in determining which values should be returned by the collection.
+    \\"\\"\\"
+    condition: FilterableCondition
+
     \\"\\"\\"Only read the first \`n\` values of the set.\\"\\"\\"
     first: Int
 
@@ -1411,6 +1957,17 @@ type Parent implements Node {
   A globally unique identifier. Can be used in various places throughout the system to identify this single value.
   \\"\\"\\"
   nodeId: ID!
+}
+
+\\"\\"\\"
+A condition to be used against \`Parent\` object types. All fields are tested for equality and combined with a logical ‘and.’
+\\"\\"\\"
+input ParentCondition {
+  \\"\\"\\"Checks for equality with the object’s \`id\` field.\\"\\"\\"
+  id: Int
+
+  \\"\\"\\"Checks for equality with the object’s \`name\` field.\\"\\"\\"
+  name: String
 }
 
 \\"\\"\\"A connection to a list of \`Parent\` values.\\"\\"\\"
@@ -1497,6 +2054,11 @@ type Query implements Node {
     \\"\\"\\"Read all values in the set before (above) this cursor.\\"\\"\\"
     before: Cursor
 
+    \\"\\"\\"
+    A condition to be used in determining which values should be returned by the collection.
+    \\"\\"\\"
+    condition: ArrayTypeCondition
+
     \\"\\"\\"Only read the first \`n\` values of the set.\\"\\"\\"
     first: Int
 
@@ -1520,6 +2082,11 @@ type Query implements Node {
 
     \\"\\"\\"Read all values in the set before (above) this cursor.\\"\\"\\"
     before: Cursor
+
+    \\"\\"\\"
+    A condition to be used in determining which values should be returned by the collection.
+    \\"\\"\\"
+    condition: BackwardCompoundCondition
 
     \\"\\"\\"Only read the first \`n\` values of the set.\\"\\"\\"
     first: Int
@@ -1545,6 +2112,11 @@ type Query implements Node {
     \\"\\"\\"Read all values in the set before (above) this cursor.\\"\\"\\"
     before: Cursor
 
+    \\"\\"\\"
+    A condition to be used in determining which values should be returned by the collection.
+    \\"\\"\\"
+    condition: BackwardCondition
+
     \\"\\"\\"Only read the first \`n\` values of the set.\\"\\"\\"
     first: Int
 
@@ -1568,6 +2140,11 @@ type Query implements Node {
 
     \\"\\"\\"Read all values in the set before (above) this cursor.\\"\\"\\"
     before: Cursor
+
+    \\"\\"\\"
+    A condition to be used in determining which values should be returned by the collection.
+    \\"\\"\\"
+    condition: ChildCondition
 
     \\"\\"\\"Only read the first \`n\` values of the set.\\"\\"\\"
     first: Int
@@ -1593,6 +2170,11 @@ type Query implements Node {
     \\"\\"\\"Read all values in the set before (above) this cursor.\\"\\"\\"
     before: Cursor
 
+    \\"\\"\\"
+    A condition to be used in determining which values should be returned by the collection.
+    \\"\\"\\"
+    condition: DomainTypeCondition
+
     \\"\\"\\"Only read the first \`n\` values of the set.\\"\\"\\"
     first: Int
 
@@ -1616,6 +2198,11 @@ type Query implements Node {
 
     \\"\\"\\"Read all values in the set before (above) this cursor.\\"\\"\\"
     before: Cursor
+
+    \\"\\"\\"
+    A condition to be used in determining which values should be returned by the collection.
+    \\"\\"\\"
+    condition: EnumArrayTypeCondition
 
     \\"\\"\\"Only read the first \`n\` values of the set.\\"\\"\\"
     first: Int
@@ -1641,6 +2228,11 @@ type Query implements Node {
     \\"\\"\\"Read all values in the set before (above) this cursor.\\"\\"\\"
     before: Cursor
 
+    \\"\\"\\"
+    A condition to be used in determining which values should be returned by the collection.
+    \\"\\"\\"
+    condition: EnumTypeCondition
+
     \\"\\"\\"Only read the first \`n\` values of the set.\\"\\"\\"
     first: Int
 
@@ -1664,6 +2256,11 @@ type Query implements Node {
 
     \\"\\"\\"Read all values in the set before (above) this cursor.\\"\\"\\"
     before: Cursor
+
+    \\"\\"\\"
+    A condition to be used in determining which values should be returned by the collection.
+    \\"\\"\\"
+    condition: FilterableCondition
 
     \\"\\"\\"Only read the first \`n\` values of the set.\\"\\"\\"
     first: Int
@@ -1689,6 +2286,11 @@ type Query implements Node {
     \\"\\"\\"Read all values in the set before (above) this cursor.\\"\\"\\"
     before: Cursor
 
+    \\"\\"\\"
+    A condition to be used in determining which values should be returned by the collection.
+    \\"\\"\\"
+    condition: ForwardCompoundCondition
+
     \\"\\"\\"Only read the first \`n\` values of the set.\\"\\"\\"
     first: Int
 
@@ -1712,6 +2314,11 @@ type Query implements Node {
 
     \\"\\"\\"Read all values in the set before (above) this cursor.\\"\\"\\"
     before: Cursor
+
+    \\"\\"\\"
+    A condition to be used in determining which values should be returned by the collection.
+    \\"\\"\\"
+    condition: ForwardCondition
 
     \\"\\"\\"Only read the first \`n\` values of the set.\\"\\"\\"
     first: Int
@@ -1761,6 +2368,11 @@ type Query implements Node {
     \\"\\"\\"Read all values in the set before (above) this cursor.\\"\\"\\"
     before: Cursor
 
+    \\"\\"\\"
+    A condition to be used in determining which values should be returned by the collection.
+    \\"\\"\\"
+    condition: JsonbTestCondition
+
     \\"\\"\\"Only read the first \`n\` values of the set.\\"\\"\\"
     first: Int
 
@@ -1784,6 +2396,11 @@ type Query implements Node {
 
     \\"\\"\\"Read all values in the set before (above) this cursor.\\"\\"\\"
     before: Cursor
+
+    \\"\\"\\"
+    A condition to be used in determining which values should be returned by the collection.
+    \\"\\"\\"
+    condition: JunctionCondition
 
     \\"\\"\\"Only read the first \`n\` values of the set.\\"\\"\\"
     first: Int
@@ -1809,6 +2426,11 @@ type Query implements Node {
     \\"\\"\\"Read all values in the set before (above) this cursor.\\"\\"\\"
     before: Cursor
 
+    \\"\\"\\"
+    A condition to be used in determining which values should be returned by the collection.
+    \\"\\"\\"
+    condition: ParentCondition
+
     \\"\\"\\"Only read the first \`n\` values of the set.\\"\\"\\"
     first: Int
 
@@ -1832,6 +2454,11 @@ type Query implements Node {
 
     \\"\\"\\"Read all values in the set before (above) this cursor.\\"\\"\\"
     before: Cursor
+
+    \\"\\"\\"
+    A condition to be used in determining which values should be returned by the collection.
+    \\"\\"\\"
+    condition: RangeArrayTypeCondition
 
     \\"\\"\\"Only read the first \`n\` values of the set.\\"\\"\\"
     first: Int
@@ -1857,6 +2484,11 @@ type Query implements Node {
     \\"\\"\\"Read all values in the set before (above) this cursor.\\"\\"\\"
     before: Cursor
 
+    \\"\\"\\"
+    A condition to be used in determining which values should be returned by the collection.
+    \\"\\"\\"
+    condition: RangeTypeCondition
+
     \\"\\"\\"Only read the first \`n\` values of the set.\\"\\"\\"
     first: Int
 
@@ -1880,6 +2512,11 @@ type Query implements Node {
 
     \\"\\"\\"Read all values in the set before (above) this cursor.\\"\\"\\"
     before: Cursor
+
+    \\"\\"\\"
+    A condition to be used in determining which values should be returned by the collection.
+    \\"\\"\\"
+    condition: SideACondition
 
     \\"\\"\\"Only read the first \`n\` values of the set.\\"\\"\\"
     first: Int
@@ -1905,6 +2542,11 @@ type Query implements Node {
     \\"\\"\\"Read all values in the set before (above) this cursor.\\"\\"\\"
     before: Cursor
 
+    \\"\\"\\"
+    A condition to be used in determining which values should be returned by the collection.
+    \\"\\"\\"
+    condition: SideBCondition
+
     \\"\\"\\"Only read the first \`n\` values of the set.\\"\\"\\"
     first: Int
 
@@ -1928,6 +2570,11 @@ type Query implements Node {
 
     \\"\\"\\"Read all values in the set before (above) this cursor.\\"\\"\\"
     before: Cursor
+
+    \\"\\"\\"
+    A condition to be used in determining which values should be returned by the collection.
+    \\"\\"\\"
+    condition: TaggCondition
 
     \\"\\"\\"Only read the first \`n\` values of the set.\\"\\"\\"
     first: Int
@@ -1976,6 +2623,11 @@ type Query implements Node {
 
     \\"\\"\\"Read all values in the set before (above) this cursor.\\"\\"\\"
     before: Cursor
+
+    \\"\\"\\"
+    A condition to be used in determining which values should be returned by the collection.
+    \\"\\"\\"
+    condition: UniqueTaggCondition
 
     \\"\\"\\"Only read the first \`n\` values of the set.\\"\\"\\"
     first: Int
@@ -2142,6 +2794,11 @@ type Query implements Node {
 
     \\"\\"\\"Read all values in the set before (above) this cursor.\\"\\"\\"
     before: Cursor
+
+    \\"\\"\\"
+    A condition to be used in determining which values should be returned by the collection.
+    \\"\\"\\"
+    condition: FilterableCondition
 
     \\"\\"\\"Only read the first \`n\` values of the set.\\"\\"\\"
     first: Int
@@ -2314,6 +2971,33 @@ type RangeArrayType implements Node {
   timestamptzRangeArray: [DatetimeRange]
 }
 
+\\"\\"\\"
+A condition to be used against \`RangeArrayType\` object types. All fields are
+tested for equality and combined with a logical ‘and.’
+\\"\\"\\"
+input RangeArrayTypeCondition {
+  \\"\\"\\"Checks for equality with the object’s \`dateRangeArray\` field.\\"\\"\\"
+  dateRangeArray: [DateRangeInput]
+
+  \\"\\"\\"Checks for equality with the object’s \`id\` field.\\"\\"\\"
+  id: Int
+
+  \\"\\"\\"Checks for equality with the object’s \`int4RangeArray\` field.\\"\\"\\"
+  int4RangeArray: [IntRangeInput]
+
+  \\"\\"\\"Checks for equality with the object’s \`int8RangeArray\` field.\\"\\"\\"
+  int8RangeArray: [BigIntRangeInput]
+
+  \\"\\"\\"Checks for equality with the object’s \`numericRangeArray\` field.\\"\\"\\"
+  numericRangeArray: [BigFloatRangeInput]
+
+  \\"\\"\\"Checks for equality with the object’s \`timestampRangeArray\` field.\\"\\"\\"
+  timestampRangeArray: [DatetimeRangeInput]
+
+  \\"\\"\\"Checks for equality with the object’s \`timestamptzRangeArray\` field.\\"\\"\\"
+  timestamptzRangeArray: [DatetimeRangeInput]
+}
+
 \\"\\"\\"A connection to a list of \`RangeArrayType\` values.\\"\\"\\"
 type RangeArrayTypesConnection {
   \\"\\"\\"
@@ -2376,6 +3060,33 @@ type RangeType implements Node {
   timestamptzRange: DatetimeRange
 }
 
+\\"\\"\\"
+A condition to be used against \`RangeType\` object types. All fields are tested
+for equality and combined with a logical ‘and.’
+\\"\\"\\"
+input RangeTypeCondition {
+  \\"\\"\\"Checks for equality with the object’s \`dateRange\` field.\\"\\"\\"
+  dateRange: DateRangeInput
+
+  \\"\\"\\"Checks for equality with the object’s \`id\` field.\\"\\"\\"
+  id: Int
+
+  \\"\\"\\"Checks for equality with the object’s \`int4Range\` field.\\"\\"\\"
+  int4Range: IntRangeInput
+
+  \\"\\"\\"Checks for equality with the object’s \`int8Range\` field.\\"\\"\\"
+  int8Range: BigIntRangeInput
+
+  \\"\\"\\"Checks for equality with the object’s \`numericRange\` field.\\"\\"\\"
+  numericRange: BigFloatRangeInput
+
+  \\"\\"\\"Checks for equality with the object’s \`timestampRange\` field.\\"\\"\\"
+  timestampRange: DatetimeRangeInput
+
+  \\"\\"\\"Checks for equality with the object’s \`timestamptzRange\` field.\\"\\"\\"
+  timestamptzRange: DatetimeRangeInput
+}
+
 \\"\\"\\"A connection to a list of \`RangeType\` values.\\"\\"\\"
 type RangeTypesConnection {
   \\"\\"\\"
@@ -2434,6 +3145,11 @@ type SideA implements Node {
     \\"\\"\\"Read all values in the set before (above) this cursor.\\"\\"\\"
     before: Cursor
 
+    \\"\\"\\"
+    A condition to be used in determining which values should be returned by the collection.
+    \\"\\"\\"
+    condition: JunctionCondition
+
     \\"\\"\\"Only read the first \`n\` values of the set.\\"\\"\\"
     first: Int
 
@@ -2455,6 +3171,17 @@ type SideA implements Node {
   A globally unique identifier. Can be used in various places throughout the system to identify this single value.
   \\"\\"\\"
   nodeId: ID!
+}
+
+\\"\\"\\"
+A condition to be used against \`SideA\` object types. All fields are tested for equality and combined with a logical ‘and.’
+\\"\\"\\"
+input SideACondition {
+  \\"\\"\\"Checks for equality with the object’s \`aId\` field.\\"\\"\\"
+  aId: Int
+
+  \\"\\"\\"Checks for equality with the object’s \`name\` field.\\"\\"\\"
+  name: String
 }
 
 \\"\\"\\"A connection to a list of \`SideA\` values.\\"\\"\\"
@@ -2505,6 +3232,11 @@ type SideB implements Node {
     \\"\\"\\"Read all values in the set before (above) this cursor.\\"\\"\\"
     before: Cursor
 
+    \\"\\"\\"
+    A condition to be used in determining which values should be returned by the collection.
+    \\"\\"\\"
+    condition: JunctionCondition
+
     \\"\\"\\"Only read the first \`n\` values of the set.\\"\\"\\"
     first: Int
 
@@ -2526,6 +3258,17 @@ type SideB implements Node {
   A globally unique identifier. Can be used in various places throughout the system to identify this single value.
   \\"\\"\\"
   nodeId: ID!
+}
+
+\\"\\"\\"
+A condition to be used against \`SideB\` object types. All fields are tested for equality and combined with a logical ‘and.’
+\\"\\"\\"
+input SideBCondition {
+  \\"\\"\\"Checks for equality with the object’s \`bId\` field.\\"\\"\\"
+  bId: Int
+
+  \\"\\"\\"Checks for equality with the object’s \`name\` field.\\"\\"\\"
+  name: String
 }
 
 \\"\\"\\"A connection to a list of \`SideB\` values.\\"\\"\\"
@@ -2575,6 +3318,23 @@ type Tagg implements Node {
   nodeId: ID!
   taggableId: Int!
   taggableType: String!
+}
+
+\\"\\"\\"
+A condition to be used against \`Tagg\` object types. All fields are tested for equality and combined with a logical ‘and.’
+\\"\\"\\"
+input TaggCondition {
+  \\"\\"\\"Checks for equality with the object’s \`content\` field.\\"\\"\\"
+  content: String
+
+  \\"\\"\\"Checks for equality with the object’s \`id\` field.\\"\\"\\"
+  id: Int
+
+  \\"\\"\\"Checks for equality with the object’s \`taggableId\` field.\\"\\"\\"
+  taggableId: Int
+
+  \\"\\"\\"Checks for equality with the object’s \`taggableType\` field.\\"\\"\\"
+  taggableType: String
 }
 
 \\"\\"\\"A connection to a list of \`Tagg\` values.\\"\\"\\"
@@ -2680,6 +3440,24 @@ type UniqueTagg implements Node {
   nodeId: ID!
   uniqueTaggableId: Int!
   uniqueTaggableType: String!
+}
+
+\\"\\"\\"
+A condition to be used against \`UniqueTagg\` object types. All fields are tested
+for equality and combined with a logical ‘and.’
+\\"\\"\\"
+input UniqueTaggCondition {
+  \\"\\"\\"Checks for equality with the object’s \`content\` field.\\"\\"\\"
+  content: String
+
+  \\"\\"\\"Checks for equality with the object’s \`id\` field.\\"\\"\\"
+  id: Int
+
+  \\"\\"\\"Checks for equality with the object’s \`uniqueTaggableId\` field.\\"\\"\\"
+  uniqueTaggableId: Int
+
+  \\"\\"\\"Checks for equality with the object’s \`uniqueTaggableType\` field.\\"\\"\\"
+  uniqueTaggableType: String
 }
 
 \\"\\"\\"A connection to a list of \`UniqueTagg\` values.\\"\\"\\"

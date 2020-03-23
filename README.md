@@ -6,6 +6,8 @@
 [![Known Vulnerabilities](https://snyk.io//test/github/hansololai/postgraphile-connection-filter-polymorphic/badge.svg?targetFile=package.json)](https://snyk.io//test/github/hansololai/postgraphile-connection-filter-polymorphic?targetFile=package.json)
 [![npm version](https://img.shields.io/npm/v/postgraphile-plugin-connection-filter-polymorphic)](https://www.npmjs.com/package/postgraphile-plugin-connection-filter-polymorphic)
 
+### Deprecated
+This is deprecated because it is merged with [postgraphile-polymorphic-relation-plugin](https://github.com/hansololai/postgraphile-polymorphic-relation-plugin)
 
 # PostGraphile Connection Plugin Polymorphic 
 This plugin exposes nested filters created by polymorphic associations. 
